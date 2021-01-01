@@ -3,6 +3,10 @@
     <Mainheader />
     <b-container fluid class="centered">
       <Navbar />
+      <div>
+        ini percobaan
+      </div>
+      <button class="button-brown">Ini Button</button>
     </b-container>
     <Footer />
   </div>
@@ -71,6 +75,7 @@ export default {
 </script>
 
 <style scoped>
+@import '../assets/CSS/main.css';
 .centered {
   text-align: center;
 }

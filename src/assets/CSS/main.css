@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+/* color picker
+brown = #6A4029
+orange = #FFBA33
+
+*/
+
+.poppins-brown {
+  color: #6a4029;
+  font-family: 'Poppins';
+}
+
+.button-brown {
+  margin: 20px 0px;
+  font-family: 'Poppins';
+  line-height: 30px;
+  text-align: center;
+  color: white;
+  background-color: #6a4029;
+  font-weight: 600;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+}

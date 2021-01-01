@@ -5,7 +5,7 @@
       <p>Coupons will be updated every weeks. Check them out!</p>
       <div class="coupon-back1"></div>
       <div class="coupon-back2"></div>
-      <div v-for="(item, index) in promo" :key="index" class="coupon-list">
+      <div v-for="(item, index) in coupon" :key="index" class="coupon-list">
         <img
           style="margin-top: 30px; width: 100px; border-radius: 200px;"
           src="../../assets/img/float.png"
@@ -52,9 +52,14 @@
 import axios from 'axios'
 export default {
   name: 'Coupon',
+  computed: {
+    rows() {
+      return this.totalRows
+    }
+  },
   data() {
     return {
-      cardPromo: '',
+      cardCoupon: '',
       promo: [],
       currentPage: 1,
       totalRows: null,

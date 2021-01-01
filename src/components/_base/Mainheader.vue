@@ -15,15 +15,32 @@
         <router-link to="#"
           ><img src="../../assets/img/Vector.png"
         /></router-link>
-        <router-link to="#"><img src="../../assets/img/chat.png"/></router-link>
+        <router-link to="/addCoupon"
+          ><img src="../../assets/img/chat.png"
+        /></router-link>
         <router-link to="#"
           ><img style="border-radius: 50%" src="../../assets/img/prof.png"
         /></router-link>
+        <button @click="handleLogout">logout</button>
       </div>
     </b-container>
     <hr />
   </header>
 </template>
+
+<script>
+import { mapActions } from 'vuex'
+export default {
+  name: 'Navbar',
+  methods: {
+    ...mapActions(['logout']),
+    handleLogout() {
+      console.log('anda berhasil logout')
+      this.logout()
+    }
+  }
+}
+</script>
 
 <style scoped>
 /* font selector */

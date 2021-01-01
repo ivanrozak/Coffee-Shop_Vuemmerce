@@ -3,34 +3,13 @@
     <Mainheader />
     <div class="yourcart">
       <b-container>
-        <h2 class="rubik font-title">Checkout your item now!</h2>
+        <h5>Favourite & Promo >Add new promo</h5>
         <b-row class="poppins" align-h="between">
           <b-col cols="5">
-            <div class="box-left padding-20 border-white">
-              <h3>Order Summary</h3>
-              <b-row>
-                <b-col>picture here</b-col>
-                <b-col>name here</b-col>
-                <b-col>idr here</b-col>
-              </b-row>
-              <hr />
-              <b-row>
-                <b-col>
-                  <p>SUB TOTAL</p>
-                  <p>TAX & FEES</p>
-                  <p>SHIPPING</p>
-                </b-col>
-                <b-col>
-                  <p>value 1</p>
-                  <p>value 2</p>
-                  <div>aaa</div>
-                  <p>value 3</p>
-                </b-col>
-              </b-row>
-              <b-row>
-                <b-col>TOTAL</b-col>
-                <b-col>VALUE</b-col>
-              </b-row>
+            <div class="box-left padding-20">
+              <img class="centered" src="../assets/logo.png" />
+              <button class="button-full" type="submit">Confirm and Pay</button>
+              <button class="button-full" type="submit">Confirm and Pay</button>
             </div>
           </b-col>
           <b-col cols="5">
