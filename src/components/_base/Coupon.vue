@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       cardCoupon: '',
-      promo: [],
+      coupon: [],
       currentPage: 1,
       totalRows: null,
       limit: 1,
@@ -77,7 +77,7 @@ export default {
           `http://localhost:3000/coupon/?page=${this.page}&limit=${this.limit}`
         )
         .then(res => {
-          this.promo = res.data.data
+          this.coupon = res.data.data
           this.totalRows = res.data.pagination.totalData
         })
         .catch(err => {

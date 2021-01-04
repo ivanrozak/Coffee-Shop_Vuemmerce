@@ -19,7 +19,10 @@
               v-for="(item, index) in products"
               :key="index"
             >
-              <div class="product-box centered">
+              <div
+                @click="detailProduct(item.product_id)"
+                class="product-box centered"
+              >
                 <div class="square"></div>
                 <div class="image">
                   <img
@@ -31,7 +34,7 @@
                   >
                     {{ item.product_name }}
                   </div>
-                  <button @click="detailProduct(item.product_id)">asd</button>
+                  <!-- <button @click="detailProduct(item.product_id)">asd</button> -->
                   <div class="price">IDR {{ item.product_price }}</div>
                 </div>
               </div>

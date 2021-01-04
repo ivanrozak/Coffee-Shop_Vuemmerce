@@ -6,8 +6,13 @@ import Lifecycle from '../views/Lifecycle.vue'
 import YourCart from '../views/YourCart.vue'
 import History from '../views/History.vue'
 import ProductDetail from '../views/ProductDetail.vue'
-import AddCoupon from '../views/AddCoupon.vue'
 import Login from '../views/auth/login.vue'
+import SignUp from '../views/SignUp'
+import ForgotPass from '../views/ForgotPass.vue'
+import Profile from '../views/Profile'
+import AddProduct from '../views/AddProduct.vue'
+// import NewPromo from '../newPromo'
+// import EditPromo from '../editPromo'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -47,16 +52,41 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/addCoupon',
-    name: 'AddCoupon',
-    component: AddCoupon
-  },
-  {
     path: '/login',
     name: 'Login',
     component: Login,
     meta: { requiresVisitor: true }
+  },
+  {
+    path: '/signUp',
+    name: 'SignUp',
+    component: SignUp
+  },
+  {
+    path: '/forgotPass',
+    name: 'ForgotPass',
+    component: ForgotPass
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile
+  },
+  {
+    path: '/addProduct',
+    name: 'AddProduct',
+    component: AddProduct
   }
+  // {
+  //   path: '/newPromo',
+  //   name: 'NewPromo',
+  //   component: NewPromo
+  // },
+  // {
+  //   path: '/editPromo',
+  //   name: 'EditPromo',
+  //   component: EditPromo
+  // }
 ]
 
 const router = new VueRouter({
