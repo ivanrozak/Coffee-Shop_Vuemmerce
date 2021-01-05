@@ -3,9 +3,7 @@
     <Mainheader />
     <b-container fluid class="centered">
       <Navbar />
-      <div>
-        ini percobaan
-      </div>
+      <h1>Hello {{ user.user_name }}</h1>
       <button class="button-brown">Ini Button</button>
     </b-container>
     <Footer />
@@ -17,6 +15,7 @@
 import Navbar from '../components/_base/Navbar'
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
+import { mapGetters } from 'vuex'
 // import FormInput from '../components/_base/FormInput'
 
 export default {
@@ -55,7 +54,8 @@ export default {
         .split(' ')
         .reverse()
         .join(' ')
-    }
+    },
+    ...mapGetters({ user: 'setUser' })
   },
   methods: {
     boom() {
