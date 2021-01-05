@@ -11,7 +11,7 @@ import SignUp from '../views/SignUp'
 import ForgotPass from '../views/ForgotPass.vue'
 import Profile from '../views/Profile'
 import AddProduct from '../views/AddProduct.vue'
-// import NewPromo from '../newPromo'
+import NewPromo from '../views/NewPromo.vue'
 // import EditPromo from '../editPromo'
 import store from '../store'
 
@@ -76,12 +76,12 @@ const routes = [
     path: '/addProduct',
     name: 'AddProduct',
     component: AddProduct
+  },
+  {
+    path: '/newPromo',
+    name: 'NewPromo',
+    component: NewPromo
   }
-  // {
-  //   path: '/newPromo',
-  //   name: 'NewPromo',
-  //   component: NewPromo
-  // },
   // {
   //   path: '/editPromo',
   //   name: 'EditPromo',

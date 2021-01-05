@@ -11,9 +11,9 @@
             </li>
           </ol>
         </nav>
-        <div class="user-profile">
-          <div class="sub-box-user-profile">
-            <div class="sub-box-user-profile-kiri">
+        <div class="add-product">
+          <div class="sub-box-add-product">
+            <div class="sub-box-add-product-kiri">
               <div class="image">
                 <img
                   style="border-radius: 50%;"
@@ -28,83 +28,52 @@
               <button class="orange">
                 Choose from gallery
               </button>
+              <div class="spacing"></div>
               <h6>Delivery Hour :</h6>
               <input type="text" placeholder="Select start hour" />
               <input type="text" placeholder="Select end hour" />
+              <div class="spacing"></div>
               <h6>Input stock :</h6>
               <input type="text" placeholder="Input stock" />
             </div>
-            <div class="sub-box-user-profile-kanan">
-              <div class="user-profile-form">
-                <div class="user-profile-form-left">
-                  <h4 style="font-weight: 900;">Contacts</h4>
-                  <div style="margin-bottom: 50px; margin-top: 30px;">
-                    <label for="exampleInputEmail1">Email address :</label>
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                      placeholder="zulaikha@gmail.com"
-                    />
-                  </div>
-                  <div style="margin-bottom: 50px;">
-                    <label>Delivery address :</label>
-                    <input
-                      class="form-control"
-                      placeholder="Enter delivery address"
-                    />
-                  </div>
-                  <h4 style="font-weight: 900;">Details</h4>
-                  <div style="margin-top: 30px; margin-bottom: 50px;">
-                    <label>Display name :</label>
-                    <input class="form-control" placeholder="Zulaikha" />
-                  </div>
-                  <div style="margin-bottom: 50px;">
-                    <label>First name :</label>
-                    <input class="form-control" placeholder="Zulaikha" />
-                  </div>
-                  <div style="margin-bottom: 50px;">
-                    <label>Last name :</label>
-                    <input class="form-control" placeholder="Nirmala" />
-                  </div>
+            <div class="sub-box-add-product-kanan">
+              <div class="add-product-form-left">
+                <h6>Name :</h6>
+                <input
+                  type="text"
+                  placeholder="Type product name max 50 characters"
+                />
+                <div class="spacing"></div>
+                <h6>Price :</h6>
+                <input class="form-control" placeholder="Type the price" />
+                <div class="spacing"></div>
+                <h6>Description :</h6>
+                <input
+                  class="form-control"
+                  placeholder="Describe your product max 150 characters"
+                />
+                <div class="spacing"></div>
+                <h6>Input product size :</h6>
+                <p>Click size you want to use for this product</p>
+                <div class="btn-group">
+                  <button class="round-on"><h4>R</h4></button>
+                  <button class="round-on"><h4>L</h4></button>
+                  <button class="round-on"><h4>XL</h4></button>
+                  <button class="round-off">250 gr</button>
+                  <button class="round-off">300 gr</button>
+                  <button class="round-off">500 gr</button>
                 </div>
-                <div class="user-profile-form-right">
-                  <div style="margin-top: 60px; margin-bottom: 50px;">
-                    <label>Mobile number :</label>
-                    <input class="form-control" placeholder="+6285934958547" />
-                  </div>
-                  <div style="margin-top: 230px; margin-bottom: 50px;">
-                    <label>DD/MM/YY :</label>
-                    <input class="form-control" placeholder="03/04/09" />
-                  </div>
+                <div class="spacing"></div>
+                <h6>Input delivery methods :</h6>
+                <p>Click methods you want to use for this product</p>
+                <div class="btn-group">
+                  <button class="btn-on"><h6>Home delivery</h6></button>
+                  <button class="btn-on"><h6>Dine in</h6></button>
+                  <button class="btn-off"><h6>Take Away</h6></button>
                 </div>
-              </div>
-              <div class="selector">
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio1"
-                    value="option1"
-                  />
-                  <label class="form-check-label" for="inlineRadio1"
-                    >Male</label
-                  >
-                </div>
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio2"
-                    value="option2"
-                  />
-                  <label class="form-check-label" for="inlineRadio2"
-                    >Female</label
-                  >
-                </div>
+                <div class="spacing"></div>
+                <button class="brown">Save Product</button>
+                <button class="white">Cancel</button>
               </div>
             </div>
           </div>
@@ -139,9 +108,10 @@ export default {
 
 .breadcrumb {
   background-color: transparent;
+  margin-bottom: 5px;
 }
 .breadcrumb-item {
-  padding: 20px 0px;
+  padding: 10px 0px;
   color: black !important;
 }
 .breadcrumb-item a {
@@ -151,52 +121,38 @@ export default {
   text-align: center;
 }
 main {
-  /* background: url('../assets/img/coffee-bg.png'); */
   background-repeat: no-repeat;
   background-size: 100% auto;
   font-family: 'Rubik';
 }
-.user-profile {
-  height: 1200px;
-  /* border: 3px solid blanchedalmond; */
+.add-product {
+  height: 1050px;
 }
-.sub-box-user-profile {
-  margin: 15px 15px;
+.sub-box-add-product {
+  margin: 0px 0px;
   height: 970px;
   background-color: #ffff;
   border-radius: 20px;
   display: flex;
-  /* border: 3px solid blanchedalmond; */
 }
-.sub-box-user-profile-kiri {
+.sub-box-add-product-kiri {
   flex: 1;
   padding: 80px 60px;
-
-  /* border: 3px solid rgb(49, 37, 19); */
 }
 .image {
   text-align: center;
 }
 
-.sub-box-user-profile-kanan {
+.sub-box-add-product-kanan {
   flex: 2.2;
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.22);
-  background-color: #ffff;
-  border-radius: 20px;
-  margin: 20px 20px;
-  border-bottom: 10px solid#6a4029;
+  margin: 0px 20px;
 }
-.user-profile-form {
-  display: flex;
-}
-.user-profile-form-left {
+
+.add-product-form-left {
   flex: 1.5;
-  padding: 20px 20px;
+  padding: 50px;
 }
-.user-profile-form-right {
-  flex: 1;
-  padding: 20px 20px;
-}
+
 .selector {
   display: flex;
   justify-content: space-evenly;
@@ -206,8 +162,10 @@ main {
 }
 input {
   border: none;
-  border-bottom: 1px solid black !important;
-  border-radius: 0px !important;
+  border-bottom: 1px solid rgb(179, 179, 179) !important;
+  line-height: 50px;
+  padding-left: 20px;
+  width: 100%;
 }
 h2 {
   font-weight: 600;
@@ -218,29 +176,78 @@ h6 {
   padding-top: 10px;
   font-weight: bold;
   text-align: left;
+  color: #6a4029;
 }
 button {
   font-weight: bold;
   margin: 15px 0px;
-  width: 100%;
-  border-radius: 10px;
-  line-height: 50px;
   border: none;
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.34);
-}
-.brown {
-  background-color: #6a4029;
-  color: #ffff;
 }
 .orange {
   background-color: #ffba33;
   color: #6a4029;
+  width: 100%;
+  border-radius: 10px;
+  line-height: 50px;
 }
 .black {
   background-color: black;
   color: white;
+  width: 100%;
+  border-radius: 10px;
+  line-height: 50px;
 }
-.btn-sm {
-  line-height: 35px;
+.round-on {
+  background-color: #ffba33;
+  color: #6a4029;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 25px;
+}
+.round-off {
+  background-color: #e6e6e6;
+  color: #535353;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 25px;
+}
+h4 {
+  font-weight: bold;
+}
+.btn-on {
+  background-color: #ffba33;
+  color: #6a4029;
+  border-radius: 10px;
+  padding: 5px 25px;
+  margin-right: 25px;
+}
+.btn-off {
+  background-color: #e6e6e6;
+  color: #535353;
+  border-radius: 10px;
+  padding: 5px 25px;
+  margin-right: 25px;
+}
+.spacing {
+  margin: 40px;
+}
+.brown {
+  background-color: #6a4029;
+  color: #e6e6e6;
+  width: 100%;
+  line-height: 60px;
+  border-radius: 10px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.34);
+}
+.white {
+  color: #535353;
+  background-color: #e6e6e6;
+  width: 100%;
+  line-height: 60px;
+  border-radius: 10px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.34);
 }
 </style>

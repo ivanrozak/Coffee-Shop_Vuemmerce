@@ -1,173 +1,259 @@
 <template>
-  <main>
+  <div class="AddProduct">
     <Mainheader />
-    <div class="yourcart">
-      <b-container>
-        <h5>Favourite & Promo >Add new promo</h5>
-        <b-row class="poppins" align-h="between">
-          <b-col cols="5">
-            <div class="box-left padding-20">
-              <img class="centered" src="../assets/logo.png" />
-              <button class="button-full" type="submit">Confirm and Pay</button>
-              <button class="button-full" type="submit">Confirm and Pay</button>
+    <main>
+      <div class="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Favourite & Promo</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Add new Promo
+            </li>
+          </ol>
+        </nav>
+        <div class="add-promo">
+          <div class="sub-box-add-promo">
+            <div class="sub-box-add-promo-kiri">
+              <div class="image">
+                <img
+                  style="border-radius: 50%;"
+                  src="../assets/img/image 39.png"
+                />
+              </div>
+              <br />
+
+              <button class="black">
+                Take a picture
+              </button>
+              <button class="orange">
+                Choose from gallery
+              </button>
+              <div class="spacing"></div>
+              <h6>Enter the discount :</h6>
+              <input type="text" placeholder="Input discount" />
+              <div class="spacing"></div>
+              <h6>Expire date :</h6>
+              <input type="text" placeholder="Select start date" />
+              <input type="text" placeholder="Select end date" />
+              <div class="spacing"></div>
+              <h6>Input coupon code :</h6>
+              <input type="text" placeholder="Input code" />
             </div>
-          </b-col>
-          <b-col cols="5">
-            <h4 class="font-title">Address details</h4>
-            <div class="border-white padding-20">
-              <p>Delivery to value address</p>
-              <hr />
-              <p>disini alamat</p>
-              <hr />
-              <p>contsct user</p>
+            <div class="sub-box-add-promo-kanan">
+              <div class="add-promo-form-left">
+                <h6>Name :</h6>
+                <input
+                  type="text"
+                  placeholder="Type product name max 50 characters"
+                />
+                <div class="spacing"></div>
+                <h6>Normal Price :</h6>
+                <input
+                  class="form-control"
+                  placeholder="Type the normal price"
+                />
+                <div class="spacing"></div>
+                <h6>Description :</h6>
+                <input
+                  class="form-control"
+                  placeholder="Describe your promo max 150 characters"
+                />
+                <div class="spacing"></div>
+                <h6>Input product size :</h6>
+                <p>Click size you want to use for this product</p>
+                <div class="btn-group">
+                  <button class="round-on"><h4>R</h4></button>
+                  <button class="round-on"><h4>L</h4></button>
+                  <button class="round-on"><h4>XL</h4></button>
+                  <button class="round-off">250 gr</button>
+                  <button class="round-off">300 gr</button>
+                  <button class="round-off">500 gr</button>
+                </div>
+                <div class="spacing"></div>
+                <h6>Input delivery methods :</h6>
+                <p>Click methods you want to use for this product</p>
+                <div class="btn-group">
+                  <button class="btn-on"><h6>Home delivery</h6></button>
+                  <button class="btn-on"><h6>Dine in</h6></button>
+                  <button class="btn-off"><h6>Take Away</h6></button>
+                </div>
+                <div class="spacing"></div>
+                <button class="brown">Save Promo</button>
+                <button class="white">Cancel</button>
+              </div>
             </div>
-            <h4 class="font-title">Payment method</h4>
-            <div class="border-white padding-20">
-              <p>Card</p>
-              <hr />
-              <p>Bank Account</p>
-              <hr />
-              <p>Cash on Delivery</p>
-            </div>
-            <button class="button-full" type="submit">Confirm and Pay</button>
-          </b-col>
-        </b-row>
-      </b-container>
-    </div>
+          </div>
+        </div>
+      </div>
+    </main>
     <Footer />
-  </main>
+  </div>
 </template>
 
 <script>
 // [1] step pertama import komponen
+
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
-import axios from 'axios'
+// import FormInput from '../components/_base/FormInput'
 
 export default {
-  name: 'History',
+  name: 'Home',
   // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
     Mainheader,
     Footer
-  },
-  computed: {
-    rows() {
-      return this.totalRows
-    }
-  },
-  data() {
-    return {
-      history: [],
-      alert: false,
-      isMsg: '',
-      history_id: '',
-      currentPage: 1,
-      totalRows: null,
-      limit: 12,
-      page: 1
-    }
-  },
-  created() {
-    this.getHistory()
-  },
-  methods: {
-    getHistory() {
-      axios
-        .get(
-          `http://localhost:3000/history?page=${this.page}&limit=${this.limit}`
-        )
-        .then(response => {
-          console.log(response)
-          this.totalRows = response.data.pagination.totalData
-          this.history = response.data.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
-    deleteHistory(history_id) {
-      console.log(history_id)
-    },
-    handlePageChange(numberPage) {
-      console.log(numberPage)
-      this.page = numberPage
-      this.getHistory()
-    }
+    // FormInput
   }
 }
 </script>
 
 <style scoped>
-/* font selector */
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 
-.yourcart {
-  padding: 30px;
-  font-family: 'Rubik';
-  background-image: url('../assets/img/coffee-bg2.png');
-
-  /* Full height */
-  height: 100%;
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.breadcrumb {
+  background-color: transparent;
+  margin-bottom: 5px;
+}
+.breadcrumb-item {
+  padding: 10px 0px;
+  color: black !important;
+}
+.breadcrumb-item a {
+  color: black !important;
 }
 .centered {
   text-align: center;
 }
-.poppins {
-  font-family: 'Poppins';
-}
-.rubik {
+main {
+  background-repeat: no-repeat;
+  background-size: 100% auto;
   font-family: 'Rubik';
 }
-.padding-20 {
-  padding: 10px 20px;
+.add-promo {
+  height: 1050px;
 }
-.border-white {
-  background-color: white;
+.sub-box-add-promo {
+  margin: 0px 0px;
+  height: 970px;
+  background-color: #ffff;
   border-radius: 20px;
-}
-.cards {
-  border-radius: 10px;
-  padding: 20px 20px;
-  margin: 20px 20px;
   display: flex;
-  background-color: white;
-  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.03);
 }
-.cards img {
-  border-radius: 50%;
-  width: 70px;
-  margin-right: 20px;
+.sub-box-add-promo-kiri {
+  flex: 1;
+  padding: 80px 60px;
 }
-.cards-mid {
-  width: 190px;
+.image {
+  text-align: center;
 }
-.cards button {
+
+.sub-box-add-promo-kanan {
+  flex: 2.2;
+  margin: 0px 20px;
+}
+
+.add-promo-form-left {
+  flex: 1.5;
+  padding: 20px 50px;
+}
+
+.selector {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 1.5em;
+  margin-bottom: 60px;
   margin-top: 40px;
-  width: 60px;
-  height: 30px;
-  border-radius: 10px;
 }
-.font-title {
-  color: white;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.8);
-  font-weight: bold;
-}
-.button-full {
+input {
+  border: none;
+  border-bottom: 1px solid rgb(179, 179, 179) !important;
+  line-height: 50px;
+  padding-left: 20px;
   width: 100%;
-  border-radius: 20px;
-  padding: 20px;
-  background-color: #6a4029;
+}
+h2 {
+  font-weight: 600;
   color: white;
+  padding: 20px 20px;
+}
+h6 {
+  padding-top: 10px;
+  font-weight: bold;
+  text-align: left;
+  color: #6a4029;
+}
+button {
+  font-weight: bold;
+  margin: 15px 0px;
+  border: none;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.34);
+}
+.orange {
+  background-color: #ffba33;
+  color: #6a4029;
+  width: 100%;
+  border-radius: 10px;
+  line-height: 50px;
+}
+.black {
+  background-color: black;
+  color: white;
+  width: 100%;
+  border-radius: 10px;
+  line-height: 50px;
+}
+.round-on {
+  background-color: #ffba33;
+  color: #6a4029;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 25px;
+}
+.round-off {
+  background-color: #e6e6e6;
+  color: #535353;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 25px;
+}
+h4 {
   font-weight: bold;
 }
-b-pagination {
-  padding-top: 20px;
+.btn-on {
+  background-color: #ffba33;
+  color: #6a4029;
+  border-radius: 10px;
+  padding: 5px 25px;
+  margin-right: 25px;
+}
+.btn-off {
+  background-color: #e6e6e6;
+  color: #535353;
+  border-radius: 10px;
+  padding: 5px 25px;
+  margin-right: 25px;
+}
+.spacing {
+  margin: 40px;
+}
+.brown {
+  background-color: #6a4029;
+  color: #e6e6e6;
+  width: 100%;
+  line-height: 60px;
+  border-radius: 10px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.34);
+}
+.white {
+  color: #535353;
+  background-color: #e6e6e6;
+  width: 100%;
+  line-height: 60px;
+  border-radius: 10px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.34);
 }
 </style>
