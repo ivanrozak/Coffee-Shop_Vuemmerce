@@ -5,7 +5,8 @@ export default {
     limit: 12,
     page: 1,
     products: [],
-    totalRows: null
+    totalRows: null,
+    sortBy: 'product_name'
   },
   mutations: {
     setProduct(state, payload) {
@@ -15,17 +16,55 @@ export default {
     },
     changePage(state, payload) {
       state.page = payload
+    },
+    search(state, payload) {
+      state.search = payload
+    },
+    sortBy(state, payload) {
+      state.sortBy = payload
+    },
+    changeCategory(state, payload) {
+      state.category = payload
     }
   },
   actions: {
-    getProducts(context) {
+    getProducts(context, payload) {
+      let name
+      if (payload) {
+        name = payload
+      } else {
+        name = ''
+      }
+
       return new Promise((resolve, reject) => {
         axios
           .get(
-            `http://localhost:3000/product?page=${context.state.page}&limit=${context.state.limit}`
+            `http://localhost:3000/product?product_name=${name}&page=${context.state.page}&limit=${context.state.limit}&sortBy=${context.state.sortBy}&category_id=${context.state.category}`
           )
           .then(response => {
             console.log(response)
+            context.commit('search', payload)
+            context.commit('setProduct', response.data)
+            resolve(response)
+            //   console.log(response)
+            //   state.totalRows = response.data.pagination.totalData
+            //   state.products = response.data.data
+          })
+          .catch(error => {
+            console.log(error.response)
+            reject(error)
+          })
+      })
+    },
+    getCategory(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(
+            `http://localhost:3000/product?page=${context.state.page}&limit=${context.state.limit}&sortBy=${context.state.sortBy}&category_id=${payload}`
+          )
+          .then(response => {
+            console.log(response)
+            // context.commit('getCat', payload)
             context.commit('setProduct', response.data)
             resolve(response)
             //   console.log(response)

@@ -2,7 +2,6 @@
   <div class="home">
     <Mainheader />
     <b-container fluid class="centered">
-      <Navbar />
       <h1>Hello {{ user.user_name }}</h1>
       <button class="button-brown">Ini Button</button>
     </b-container>
@@ -12,7 +11,7 @@
 
 <script>
 // [1] step pertama import komponen
-import Navbar from '../components/_base/Navbar'
+
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import { mapGetters } from 'vuex'
@@ -22,7 +21,6 @@ export default {
   name: 'Home',
   // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
-    Navbar,
     Mainheader,
     Footer
     // FormInput

@@ -6,7 +6,6 @@
       <div class="vl"></div>
       <div class="product-list col-xl-9">
         <Navbar />
-        <input type="file" @change="handleFile" />
         <b-alert :show="alert">{{ isMsg }}</b-alert>
 
         <b-container class="bv-example-row">
@@ -39,6 +38,9 @@
                   </div>
                   <!-- <button @click="detailProduct(item.product_id)">asd</button> -->
                   <div class="price">IDR {{ item.product_price }}</div>
+                  <div v-if="role === 1">
+                    <button>Edit</button>
+                  </div>
                 </div>
               </div>
             </b-col>
@@ -128,7 +130,8 @@ export default {
       alert: false,
       isMsg: '',
       product_id: '',
-      currentPage: 1
+      currentPage: 1,
+      role: 1
       // totalRows: null,
       // limit: 12,
       // page: 1

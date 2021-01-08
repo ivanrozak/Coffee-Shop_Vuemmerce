@@ -7,7 +7,9 @@
       <div class="signup-content">
         <div class="top-header">
           <img src="../../assets/img/coffee1.png" alt="" />Coffee Shop
-          <button class="login">Sign Up</button>
+          <button class="login">
+            <router-link to="/signUp">Sign Up</router-link>
+          </button>
         </div>
         <div class="width">
           <h3 class="centered">Login</h3>

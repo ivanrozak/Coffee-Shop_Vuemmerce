@@ -12,9 +12,10 @@
         <router-link class="link-router" to="/history">History</router-link>
       </div>
       <div class="header-icon col-xl-3">
-        <router-link to="#"
+        <input type="text" v-model="searchProduct" @keyup.enter="search()" />
+        <!-- <router-link to="#"
           ><img src="../../assets/img/Vector.png"
-        /></router-link>
+        /></router-link> -->
         <router-link to="/addCoupon"
           ><img src="../../assets/img/chat.png"
         /></router-link>
@@ -29,14 +30,24 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 export default {
-  name: 'Navbar',
+  name: 'Header',
+  data() {
+    return {
+      searchProduct: ''
+    }
+  },
   methods: {
-    ...mapActions(['logout']),
+    ...mapActions(['logout', 'getProducts']),
+    ...mapMutations(['changePage']),
     handleLogout() {
       console.log('anda berhasil logout')
       this.logout()
+    },
+    search() {
+      this.changePage(1)
+      this.getProducts(this.searchProduct)
     }
   }
 }
