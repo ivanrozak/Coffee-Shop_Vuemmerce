@@ -1,89 +1,65 @@
 <template>
   <main>
     <Mainheader />
-    <div class="product">
-      <Coupon />
-      <div class="vl"></div>
-      <div class="product-list col-xl-9">
-        <Navbar />
-        <b-alert :show="alert">{{ isMsg }}</b-alert>
+    <b-container>
+      <div class="product">
+        <Coupon />
+        <div class="vl"></div>
+        <div class="product-list col-xl-9">
+          <Navbar />
+          <b-alert :show="alert">{{ isMsg }}</b-alert>
 
-        <b-container class="bv-example-row">
-          <b-row>
-            <b-col
-              style="margin-bottom: 30px"
-              xl="3"
-              lg="4"
-              md="6"
-              sm="12"
-              v-for="(item, index) in products"
-              :key="index"
-            >
-              <div
-                @click="detailProduct(item.product_id)"
-                class="product-box centered"
+          <b-container class="bv-example-row">
+            <b-row>
+              <b-col
+                style="margin-bottom: 30px"
+                xl="3"
+                lg="4"
+                md="6"
+                sm="12"
+                v-for="(item, index) in products"
+                :key="index"
               >
-                <div class="square"></div>
-                <div class="image">
-                  <img
-                    style="border-radius: 50%; width: 120px; height: 120px;"
-                    :src="
-                      'http://localhost:3000/products/' + item.product_image
-                    "
-                  />
-                  <div
-                    style="padding: 0px 60px; font-weight: 600; font-size: 20px; padding: 5px 5px; "
-                  >
-                    {{ item.product_name }}
-                  </div>
-                  <!-- <button @click="detailProduct(item.product_id)">asd</button> -->
-                  <div class="price">IDR {{ item.product_price }}</div>
-                  <div v-if="role === 1">
-                    <button>Edit</button>
+                <div class="product-box centered">
+                  <div class="square"></div>
+                  <div class="image">
+                    <img
+                      style="border-radius: 50%; width: 120px; height: 120px;"
+                      :src="
+                        'http://localhost:3000/products/' + item.product_image
+                      "
+                    />
+                    <div
+                      @click="detailProduct(item.product_id)"
+                      style="padding: 0px 60px; font-weight: 600; font-size: 20px; padding: 5px 5px; "
+                    >
+                      {{ item.product_name }}
+                    </div>
+                    <div class="price">IDR {{ item.product_price }}</div>
+                    <div v-if="role === 1">
+                      <button>Update</button>
+                      <button>Delete</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </b-col>
-          </b-row>
-          <b-pagination
-            v-model="currentPage"
-            :total-rows="rows"
-            :per-page="limit"
-            @change="handlePageChange"
-          ></b-pagination>
-          <form>
-            <input
-              type="text"
-              v-model="form.product_name"
-              placeholder="Product Name ..."
-            />
-            <br />
-            <input
-              type="text"
-              v-model="form.product_price"
-              placeholder="Product Price ..."
-            />
-            <br />
-            <input
-              type="text"
-              v-model="form.category_id"
-              placeholder="Category Id ..."
-            />
-            <br />
-            <input
-              type="text"
-              v-model="form.product_status"
-              placeholder="Product Status ..."
-            />
-            <br />
-            <input type="file" @change="handleFile" />
-            <br />
-            <button type="button" @click="postProduct()">Save</button>
-            <button type="button" @click="patchProduct()">Update</button>
-          </form>
-        </b-container>
+              </b-col>
+            </b-row>
+            <b-pagination
+              v-model="currentPage"
+              :total-rows="rows"
+              :per-page="limit"
+              @change="handlePageChange"
+            ></b-pagination>
+            <div class="centered">
+              <button @click="toPageAddProduct()" class="btn-brown">
+                Add New Product
+              </button>
+            </div>
+          </b-container>
+        </div>
       </div>
-    </div>
+    </b-container>
+
     <Footer />
   </main>
 </template>
@@ -139,57 +115,10 @@ export default {
   },
   created() {
     this.getProducts()
-    // this.getProduct()
   },
   methods: {
     ...mapActions(['getProducts']),
     ...mapMutations(['changePage']),
-    // getProduct() {
-    // axios
-    //   .get(
-    //     `http://localhost:3000/product?page=${this.page}&limit=${this.limit}`
-    //   )
-    //   .then(response => {
-    //     console.log(response)
-    //     this.totalRows = response.data.pagination.totalData
-    //     this.products = response.data.data
-    //   })
-    //   .catch(error => {
-    //     console.log(error)
-    //   })
-    // },
-    postProduct() {
-      console.log(this.form)
-      const {
-        product_name,
-        product_price,
-        product_status,
-        category_id,
-        product_image
-      } = this.form
-      const data = new FormData()
-      data.append('product_name', product_name)
-      data.append('product_price', product_price)
-      data.append('product_status', product_status)
-      data.append('category_id', category_id)
-      data.append('product_image', product_image)
-      //ini untuk pengecekan dengan log
-      for (var pair of data.entries()) {
-        console.log(pair[0] + ', ' + pair[1])
-      }
-
-      // axios
-      //   .post('http://localhost:3000/product', this.form)
-      //   .then(response => {
-      //     console.log(response)
-      //     this.alert = true
-      //     this.isMsg = response.data.msg
-      //     // this.getProduct()
-      //   })
-      //   .catch(error => {
-      //     console.log(error)
-      //   })
-    },
     deleteProduct(product_id) {
       console.log(product_id)
     },
@@ -218,6 +147,9 @@ export default {
     detailProduct(product_id) {
       console.log(product_id)
       this.$router.push({ name: 'ProductDetail', params: { id: product_id } })
+    },
+    toPageAddProduct() {
+      this.$router.push('addProduct')
     },
     handleFile(event) {
       console.log(event)
@@ -308,6 +240,15 @@ export default {
   height: 350px;
   border-radius: 20px;
   background-color: #ffcb65;
+}
+.btn-brown {
+  background-color: #6a4029;
+  color: white;
+  font-weight: bold;
+  padding: 20px;
+  width: 100%;
+  border-radius: 20px;
+  margin: 10px 0px 30px;
 }
 
 /* .product-list {

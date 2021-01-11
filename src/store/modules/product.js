@@ -6,7 +6,7 @@ export default {
     page: 1,
     products: [],
     totalRows: null,
-    sortBy: 'product_name'
+    sortBy: ''
   },
   mutations: {
     setProduct(state, payload) {
@@ -20,7 +20,7 @@ export default {
     search(state, payload) {
       state.search = payload
     },
-    sortBy(state, payload) {
+    changeSortBy(state, payload) {
       state.sortBy = payload
     },
     changeCategory(state, payload) {
@@ -35,7 +35,6 @@ export default {
       } else {
         name = ''
       }
-
       return new Promise((resolve, reject) => {
         axios
           .get(
@@ -73,6 +72,21 @@ export default {
           })
           .catch(error => {
             console.log(error.response)
+            reject(error)
+          })
+      })
+    },
+    postProduct(context, payload) {
+      console.log(context)
+      return new Promise((resolve, reject) => {
+        axios
+          .post('http://localhost:3000/product/', payload)
+          .then(response => {
+            console.log(response)
+            resolve(response)
+          })
+          .catch(error => {
+            console.log(error)
             reject(error)
           })
       })

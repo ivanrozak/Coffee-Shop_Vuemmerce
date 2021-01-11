@@ -5,7 +5,9 @@
       <div class="container">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Favourite & Promo</a></li>
+            <li class="breadcrumb-item">
+              <router-link to="./product">Favourite & Promo</router-link>
+            </li>
             <li class="breadcrumb-item active" aria-current="page">
               Add new Promo
             </li>

@@ -32,7 +32,7 @@
 <script>
 import { mapActions, mapMutations } from 'vuex'
 export default {
-  name: 'Header',
+  name: 'Navbar',
   data() {
     return {
       searchProduct: ''

@@ -12,6 +12,7 @@ import ForgotPass from '../views/ForgotPass.vue'
 import Profile from '../views/Profile'
 import AddProduct from '../views/AddProduct.vue'
 import NewPromo from '../views/NewPromo.vue'
+import EditProduct from '../views/EditProduct.vue'
 // import EditPromo from '../editPromo'
 import store from '../store'
 
@@ -81,6 +82,11 @@ const routes = [
     path: '/newPromo',
     name: 'NewPromo',
     component: NewPromo
+  },
+  {
+    path: '/editProduct',
+    name: 'EditProduct',
+    component: EditProduct
   }
   // {
   //   path: '/editPromo',

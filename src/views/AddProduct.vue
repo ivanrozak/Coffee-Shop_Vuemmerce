@@ -5,7 +5,9 @@
       <div class="container">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Favourite & Promo</a></li>
+            <li class="breadcrumb-item">
+              <router-link to="/product">Favourite & Promo</router-link>
+            </li>
             <li class="breadcrumb-item active" aria-current="page">
               Add new Product
             </li>
@@ -21,8 +23,8 @@
                 />
               </div>
               <br />
-
-              <button class="black">
+              <input id="fileUpload" type="file" @change="handleFile" hidden />
+              <button @click="chooseFile" class="black">
                 Take a picture
               </button>
               <button class="orange">
@@ -41,14 +43,22 @@
                 <h6>Name :</h6>
                 <input
                   type="text"
+                  v-model="form.product_name"
                   placeholder="Type product name max 50 characters"
                 />
                 <div class="spacing"></div>
                 <h6>Price :</h6>
-                <input class="form-control" placeholder="Type the price" />
+                <input
+                  type="text"
+                  v-model="form.product_price"
+                  class="form-control"
+                  placeholder="Type the price"
+                />
                 <div class="spacing"></div>
                 <h6>Description :</h6>
                 <input
+                  type="text"
+                  v-model="form.product_status"
                   class="form-control"
                   placeholder="Describe your product max 150 characters"
                 />
@@ -72,7 +82,9 @@
                   <button class="btn-off"><h6>Take Away</h6></button>
                 </div>
                 <div class="spacing"></div>
-                <button class="brown">Save Product</button>
+                <button type="button" class="brown" @click="addProduct()">
+                  Save Product
+                </button>
                 <button class="white">Cancel</button>
               </div>
             </div>
@@ -89,6 +101,7 @@
 
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
+import { mapActions } from 'vuex'
 // import FormInput from '../components/_base/FormInput'
 
 export default {
@@ -98,6 +111,55 @@ export default {
     Mainheader,
     Footer
     // FormInput
+  },
+  data() {
+    return {
+      form: {
+        product_name: '',
+        category_id: '1',
+        product_price: '',
+        product_status: '1',
+        product_image: ''
+      },
+      alert: false
+    }
+  },
+  methods: {
+    ...mapActions(['postProduct', 'getProducts']),
+    addProduct() {
+      const {
+        product_name,
+        category_id,
+        product_price,
+        product_status,
+        product_image
+      } = this.form
+      const data = new FormData()
+      data.append('product_name', product_name)
+      data.append('product_price', product_price)
+      data.append('product_status', product_status)
+      data.append('category_id', category_id)
+      data.append('product_image', product_image)
+      //ini untuk pengecekan dengan log
+      for (var pair of data.entries()) {
+        console.log(pair[0] + ', ' + pair[1])
+      }
+      this.postProduct(data)
+        .then(result => {
+          alert(result.data.msg)
+        })
+        .catch(err => {
+          alert(err.data.msg)
+        })
+    },
+    handleFile(event) {
+      console.log(event)
+      this.form.product_image = event.target.files[0]
+      this.getProducts()
+    },
+    chooseFile() {
+      document.getElementById('fileUpload').click()
+    }
   }
 }
 </script>

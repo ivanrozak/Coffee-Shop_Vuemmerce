@@ -45,6 +45,9 @@
         <li>Should make remember card to apply coupon</li>
       </ul>
     </div>
+    <div class="new-promo">
+      <button>Add New Promo</button>
+    </div>
   </div>
 </template>
 
@@ -108,7 +111,7 @@ export default {
   height: 292px;
   background-color: black;
   margin-top: 70px;
-  left: 90px;
+  left: 45px;
   border-radius: 15px;
 }
 .coupon-back1 {
@@ -117,12 +120,12 @@ export default {
   width: 200px;
   height: 250px;
   margin-top: 90px;
-  left: 103px;
+  left: 53px;
   border-radius: 15px;
 }
 .coupon-list {
   position: absolute;
-  margin-left: 60px;
+  margin-left: 20px;
   margin-top: 40px;
   margin-bottom: 40px;
   width: 200px;
@@ -162,10 +165,21 @@ export default {
   color: antiquewhite;
   background-color: #6a4029;
 }
+.new-promo button {
+  position: relative;
+  top: 610px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+  color: #6a4029;
+  background-color: #ffba33;
+}
 .promo_pagination {
   position: relative;
   top: 400px;
-  margin-left: 70px;
+  margin-left: 25px;
 }
 .box2a3 {
   position: relative;

@@ -1,18 +1,18 @@
 <template>
   <nav>
-    <router-link class="link-router" to="/">Favourite & Promo</router-link>
-    <button @click="getCat()">cat1</button>
-    <router-link class="link-router" to="/">Coffee</router-link>
-    <router-link class="link-router" to="/">Non Coffee</router-link>
-    <router-link class="link-router" to="/">Foods</router-link>
-    <router-link class="link-router" to="/">Add-on</router-link>
+    <button class="link-router" @click="getCat()">Favourite & Promo</button>
+    <button class="link-router" @click="getCat1()">Coffee</button>
+    <button class="link-router" @click="getCat2()">Non Coffee</button>
+    <button class="link-router" @click="getCat3()">Foods</button>
+    <button class="link-router" @click="getCat4()">Add-on</button>
+
     <div>
       <b-dropdown id="dropdown-1" text="Sort by" class="m-md-2">
-        <b-dropdown-item>Highest Price</b-dropdown-item>
-        <b-dropdown-item>Lowest Price</b-dropdown-item>
-        <b-dropdown-item>Recently Updated</b-dropdown-item>
-        <b-dropdown-item>A-Z</b-dropdown-item>
-        <b-dropdown-item>Z-A</b-dropdown-item>
+        <b-dropdown-item @click="changeSortHP()">Highest Price</b-dropdown-item>
+        <b-dropdown-item @click="changeSortLP()">Lowest Price</b-dropdown-item>
+        <b-dropdown-item @click="changeSortLU()"
+          >Recently Updated</b-dropdown-item
+        >
       </b-dropdown>
     </div>
   </nav>
@@ -28,9 +28,44 @@ export default {
   },
   methods: {
     ...mapActions(['getProducts']),
-    ...mapMutations(['changePage', 'changeCategory']),
+    ...mapMutations(['changePage', 'changeCategory', 'changeSortBy']),
     getCat() {
+      this.changeCategory('*')
+      this.changePage(1)
+      this.getProducts(this.category)
+    },
+    getCat1() {
       this.changeCategory(1)
+      this.changePage(1)
+      this.getProducts(this.category)
+    },
+    getCat2() {
+      this.changeCategory(2)
+      this.changePage(1)
+      this.getProducts(this.category)
+    },
+    getCat3() {
+      this.changeCategory(3)
+      this.changePage(1)
+      this.getProducts(this.category)
+    },
+    getCat4() {
+      this.changeCategory(4)
+      this.changePage(1)
+      this.getProducts(this.category)
+    },
+    changeSortHP() {
+      this.changeSortBy('product_price DESC')
+      this.changePage(1)
+      this.getProducts(this.category)
+    },
+    changeSortLP() {
+      this.changeSortBy('product_price')
+      this.changePage(1)
+      this.getProducts(this.category)
+    },
+    changeSortLU() {
+      this.changeSortBy('product_created_at DESC')
       this.changePage(1)
       this.getProducts(this.category)
     }
@@ -47,14 +82,17 @@ nav {
   font-family: 'Rubik';
   display: flex;
   justify-content: space-evenly;
+  justify-items: center;
   padding: 20px;
-  height: 70px;
+  height: 95px;
 }
 
 .link-router {
   padding-bottom: 7px;
   color: #4f5665;
   text-decoration: none;
+  border: none;
+  background-color: white;
 }
 .link-router:hover {
   text-decoration: none;
