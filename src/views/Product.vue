@@ -37,8 +37,18 @@
                     </div>
                     <div class="price">IDR {{ item.product_price }}</div>
                     <div v-if="role === 1">
-                      <button>Update</button>
-                      <button>Delete</button>
+                      <button
+                        class="btn-update"
+                        @click="updateProduct(item.product_id)"
+                      >
+                        <img src="../assets/img/edit.png" />
+                      </button>
+                      <button
+                        class="btn-delete"
+                        @click="deleteProduct(item.product_id)"
+                      >
+                        <img src="../assets/img/delete.png" />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -117,36 +127,35 @@ export default {
     this.getProducts()
   },
   methods: {
-    ...mapActions(['getProducts']),
+    ...mapActions(['getProducts', 'deleteProducts']),
     ...mapMutations(['changePage']),
     deleteProduct(product_id) {
       console.log(product_id)
+      this.deleteProducts(product_id)
+        .then(result => {
+          alert(result.data.msg)
+          this.getProducts()
+        })
+        .catch(err => {
+          alert(err.data.msg)
+        })
     },
     setProduct(data) {
       console.log(data)
-      // this.form = {
-      //   product_name: 'data.product_name',
-      //   category_id: 'data.category_id',
-      //   product_price: 'data.product_price',
-      //   product_status: 'data.product_status'
-      // }
       this.form = data //cara simplenya
       this.product_id = data.product_id
     },
-    patchProduct() {
-      console.log(this.product_id)
-      console.log(this.form)
-    },
     handlePageChange(numberPage) {
-      // console.log(numberPage)
-      // this.page = numberPage
       this.changePage(numberPage)
       this.getProducts()
-      // this.getProducts()
     },
     detailProduct(product_id) {
       console.log(product_id)
       this.$router.push({ name: 'ProductDetail', params: { id: product_id } })
+    },
+    updateProduct(product_id) {
+      console.log(product_id)
+      this.$router.push({ name: 'EditProduct', params: { id: product_id } })
     },
     toPageAddProduct() {
       this.$router.push('addProduct')
@@ -249,6 +258,29 @@ export default {
   width: 100%;
   border-radius: 20px;
   margin: 10px 0px 30px;
+}
+.btn-update {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  top: 65px;
+  left: 100px;
+  border-radius: 50%;
+  border: none;
+  background-color: #6a4029;
+}
+.btn-delete {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  top: 65px;
+  left: -90px;
+  border-radius: 50%;
+  border: none;
+  background-color: #ffcb65;
+}
+.btn-delete img {
+  width: 80%;
 }
 
 /* .product-list {

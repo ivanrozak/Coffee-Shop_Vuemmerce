@@ -6,9 +6,9 @@
       </div>
       <div class="signup-content">
         <div class="top-header">
-          <img src="../assets/img/coffee1.png" alt="" />Coffee Shop
-          <button class="login">
-            <router-link to="/login">Login</router-link>
+          <img src="../../assets/img/coffee1.png" alt="" />Coffee Shop
+          <button class="login" @click="toPageLogin()">
+            Login
           </button>
         </div>
         <div class="width">
@@ -17,27 +17,34 @@
             <h6>Email Address:</h6>
             <input type="text" placeholder="Enter your email address" />
             <h6>Password:</h6>
-            <input type="text" placeholder="Enter yourpassword" />
+            <input type="text" placeholder="Enter your password" />
             <h6>Phone Number:</h6>
             <input type="text" placeholder="Enter your phone number" />
           </form>
           <button class="yellow">Sign Up</button>
-          <button>Sign up with Google</button>
+          <button class="google">
+            <img src="../../assets/img/google.png" alt="" />Sign up with Google
+          </button>
         </div>
       </div>
     </div>
 
-    <Foooter />
+    <Footer />
   </div>
 </template>
 
 <script>
-import Foooter from '../components/_base/Footer.vue'
+import Footer from '../../components/_base/Footer.vue'
 
 export default {
   name: 'SignUp',
-  component: {
-    Foooter
+  components: {
+    Footer
+  },
+  methods: {
+    toPageLogin() {
+      this.$router.push('login')
+    }
   }
 }
 </script>
@@ -53,7 +60,7 @@ export default {
   height: 800px;
 }
 .side-image {
-  background-image: url('../assets/img/side-signup.png');
+  background-image: url('../../assets/img/side-signup.png');
   background-size: cover;
   display: flex;
   flex: 0.45;
@@ -112,6 +119,16 @@ form input {
   margin-top: 40px;
   background-color: #ffba33;
   color: #6a4029;
+}
+.width .google {
+  margin-top: 30px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+}
+.width .google img {
+  margin-right: 10px;
+  width: 20px;
 }
 .width {
   padding: 0px 70px;

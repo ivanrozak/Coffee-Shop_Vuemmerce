@@ -90,7 +90,7 @@
             <img src="../assets/img/spotify.png" alt="" />
           </div>
         </div>
-        <div class="feedback">
+        <div class="feedback centered">
           <h4>Loved by Thousands of Happy Customer</h4>
           <p>
             These are the stories ofour customer who have visited us with great
@@ -108,7 +108,6 @@
           <button>See Promo</button>
         </div>
       </b-container>
-      <h1>Hello {{ user.user_name }}</h1>
     </div>
     <Footer />
   </div>
@@ -267,8 +266,27 @@ h4 {
 .store-map img {
   width: 80%;
 }
+.partnership {
+  padding: 40px 20px;
+}
 .partner-img {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+}
+.partner-img img {
+  width: 200px;
+}
+.feedback {
+  padding: 20px;
+}
+.promo {
+  position: relative;
+  bottom: -30px;
+  justify-content: space-between;
+  display: flex;
+  padding: 30px 70px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 </style>

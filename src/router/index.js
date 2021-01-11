@@ -7,7 +7,7 @@ import YourCart from '../views/YourCart.vue'
 import History from '../views/History.vue'
 import ProductDetail from '../views/ProductDetail.vue'
 import Login from '../views/auth/login.vue'
-import SignUp from '../views/SignUp'
+import SignUp from '../views/auth/SignUp.vue'
 import ForgotPass from '../views/ForgotPass.vue'
 import Profile from '../views/Profile'
 import AddProduct from '../views/AddProduct.vue'
@@ -46,7 +46,7 @@ const routes = [
     component: History
   },
   {
-    path: '/productDetail',
+    path: '/productDetail/:id',
     name: 'ProductDetail',
     component: ProductDetail,
     // verifikasidengan meta
@@ -84,7 +84,7 @@ const routes = [
     component: NewPromo
   },
   {
-    path: '/editProduct',
+    path: '/editProduct/:id',
     name: 'EditProduct',
     component: EditProduct
   }

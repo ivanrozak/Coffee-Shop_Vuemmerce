@@ -32,11 +32,31 @@
               </button>
               <div class="spacing"></div>
               <h6>Delivery Hour :</h6>
-              <input type="text" placeholder="Select start hour" />
-              <input type="text" placeholder="Select end hour" />
+              <b-form-select
+                class="form-select"
+                v-model="form.time_start"
+                :options="timeStart"
+              ></b-form-select>
+
+              <b-form-select
+                v-model="form.time_end"
+                :options="timeEnd"
+              ></b-form-select>
               <div class="spacing"></div>
               <h6>Input stock :</h6>
-              <input type="text" placeholder="Input stock" />
+              <b-form-select
+                v-model="form.product_qty"
+                :options="stock"
+              ></b-form-select>
+              <div class="mt-3">
+                <h6>Product Category :</h6>
+                <b-form-select
+                  v-model="form.category_id"
+                  :options="category"
+                ></b-form-select>
+                Start: {{ form.time_start }} End: {{ form.time_end }} Stock:
+                {{ form.product_qty }} Cat: {{ form.category_id }}
+              </div>
             </div>
             <div class="sub-box-add-product-kanan">
               <div class="add-product-form-left">
@@ -58,7 +78,7 @@
                 <h6>Description :</h6>
                 <input
                   type="text"
-                  v-model="form.product_status"
+                  v-model="form.product_desc"
                   class="form-control"
                   placeholder="Describe your product max 150 characters"
                 />
@@ -73,6 +93,51 @@
                   <button class="round-off">300 gr</button>
                   <button class="round-off">500 gr</button>
                 </div>
+                <div class="btn-group">
+                  <b-form-checkbox
+                    v-model="form.product_sizeR"
+                    value="1"
+                    unchecked-value="null"
+                  >
+                    R
+                  </b-form-checkbox>
+                  <b-form-checkbox
+                    v-model="form.product_sizeL"
+                    value="1"
+                    unchecked-value="null"
+                  >
+                    L
+                  </b-form-checkbox>
+                  <b-form-checkbox
+                    v-model="form.product_sizeXL"
+                    value="1"
+                    unchecked-value="null"
+                  >
+                    XL
+                  </b-form-checkbox>
+                  <b-form-checkbox
+                    v-model="form.product_size250"
+                    value="1"
+                    unchecked-value="null"
+                  >
+                    250 gr
+                  </b-form-checkbox>
+                  <b-form-checkbox
+                    v-model="form.product_size300"
+                    value="1"
+                    unchecked-value="null"
+                  >
+                    300 gr
+                  </b-form-checkbox>
+                  <b-form-checkbox
+                    v-model="form.product_size500"
+                    value="1"
+                    unchecked-value="null"
+                  >
+                    500 gr
+                  </b-form-checkbox>
+                </div>
+                <div>R: {{ form.product_sizeR }}</div>
                 <div class="spacing"></div>
                 <h6>Input delivery methods :</h6>
                 <p>Click methods you want to use for this product</p>
@@ -80,6 +145,29 @@
                   <button class="btn-on"><h6>Home delivery</h6></button>
                   <button class="btn-on"><h6>Dine in</h6></button>
                   <button class="btn-off"><h6>Take Away</h6></button>
+                </div>
+                <div class="btn-group">
+                  <b-form-checkbox
+                    v-model="form.product_deliv_home"
+                    value="1"
+                    unchecked-value="null"
+                  >
+                    Home delivery
+                  </b-form-checkbox>
+                  <b-form-checkbox
+                    v-model="form.product_deliv_dine"
+                    value="1"
+                    unchecked-value="null"
+                  >
+                    Dine In
+                  </b-form-checkbox>
+                  <b-form-checkbox
+                    v-model="form.product_deliv_take"
+                    value="1"
+                    unchecked-value="null"
+                  >
+                    Take Away
+                  </b-form-checkbox>
                 </div>
                 <div class="spacing"></div>
                 <button type="button" class="brown" @click="addProduct()">
@@ -115,24 +203,76 @@ export default {
   data() {
     return {
       form: {
+        category_id: 'null',
         product_name: '',
-        category_id: '1',
+        product_desc: '',
+        product_qty: 'null',
         product_price: '',
+        product_image: '',
         product_status: '1',
-        product_image: ''
+        time_start: 'null',
+        time_end: 'null',
+        product_sizeR: '',
+        product_sizeL: '',
+        product_sizeXL: '',
+        product_size250: '',
+        product_size300: '',
+        product_size500: '',
+        product_deliv_home: '',
+        product_deliv_dine: '',
+        product_deliv_take: ''
       },
-      alert: false
+      alert: false,
+      timeStart: [
+        { value: null, text: 'Select start hour' },
+        { value: '09:00:00', text: '09.00 AM' },
+        { value: '10:00:00', text: '10.00 AM' },
+        { value: '11:00:00', text: '11.00 AM' }
+      ],
+      timeEnd: [
+        { value: null, text: 'Select end hour' },
+        { value: '20:00:00', text: '20.00 AM' },
+        { value: '21:00:00', text: '21.00 AM' },
+        { value: '22:00:00', text: '22.00 AM' }
+      ],
+      stock: [
+        { value: null, text: 'Input stock' },
+        { value: '10', text: '10' },
+        { value: '20', text: '20' },
+        { value: '30', text: '30' }
+      ],
+      category: [
+        { value: null, text: 'Select Category' },
+        { value: '1', text: 'Coffee' },
+        { value: '2', text: 'Non Coffee' },
+        { value: '3', text: 'Foods' },
+        { value: '4', text: 'Add-on' }
+      ],
+      checked1: false
     }
   },
   methods: {
     ...mapActions(['postProduct', 'getProducts']),
     addProduct() {
       const {
-        product_name,
         category_id,
+        product_name,
+        product_desc,
+        product_qty,
         product_price,
+        product_image,
         product_status,
-        product_image
+        time_start,
+        time_end,
+        product_sizeR,
+        product_sizeL,
+        product_sizeXL,
+        product_size250,
+        product_size300,
+        product_size500,
+        product_deliv_home,
+        product_deliv_dine,
+        product_deliv_take
       } = this.form
       const data = new FormData()
       data.append('product_name', product_name)
@@ -140,6 +280,19 @@ export default {
       data.append('product_status', product_status)
       data.append('category_id', category_id)
       data.append('product_image', product_image)
+      data.append('product_desc', product_desc)
+      data.append('product_qty', product_qty)
+      data.append('time_start', time_start)
+      data.append('time_end', time_end)
+      data.append('product_sizeR', product_sizeR)
+      data.append('product_sizeL', product_sizeL)
+      data.append('product_sizeXL', product_sizeXL)
+      data.append('product_size250', product_size250)
+      data.append('product_size300', product_size300)
+      data.append('product_size500', product_size500)
+      data.append('product_deliv_home', product_deliv_home)
+      data.append('product_deliv_dine', product_deliv_dine)
+      data.append('product_deliv_take', product_deliv_take)
       //ini untuk pengecekan dengan log
       for (var pair of data.entries()) {
         console.log(pair[0] + ', ' + pair[1])
@@ -229,6 +382,11 @@ input {
   padding-left: 20px;
   width: 100%;
 }
+.form-select {
+  padding-left: 20px;
+  width: 100%;
+  margin: 20px 0px;
+}
 h2 {
   font-weight: 600;
   color: white;
@@ -311,5 +469,9 @@ h4 {
   line-height: 60px;
   border-radius: 10px;
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.34);
+}
+b-form-checkbox {
+  background-color: white !important;
+  color: #ffba33;
 }
 </style>

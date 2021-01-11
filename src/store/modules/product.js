@@ -6,7 +6,8 @@ export default {
     page: 1,
     products: [],
     totalRows: null,
-    sortBy: ''
+    sortBy: '',
+    productsById: {}
   },
   mutations: {
     setProduct(state, payload) {
@@ -25,6 +26,10 @@ export default {
     },
     changeCategory(state, payload) {
       state.category = payload
+    },
+    setProductById(state, payload) {
+      state.productsById = payload
+      console.log(state.productsById)
     }
   },
   actions: {
@@ -90,6 +95,47 @@ export default {
             reject(error)
           })
       })
+    },
+    getProductsById(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`http://localhost:3000/product/${payload}`)
+          .then(response => {
+            console.log(response)
+            context.commit('setProductById', response.data.data[0])
+            resolve(response)
+          })
+          .catch(error => {
+            console.log(error)
+            reject(error)
+          })
+      })
+    },
+    updateProducts(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .patch(`http://localhost:3000/product/${payload.id}`, payload.dataSet)
+          .then(response => {
+            console.log(response)
+            resolve(response)
+          })
+          .catch(error => {
+            console.log(error)
+            reject(error)
+          })
+      })
+    },
+    deleteProducts(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(`http://localhost:3000/product/${payload}`)
+          .then(res => {
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err.response)
+          })
+      })
     }
   },
   getters: {
@@ -107,6 +153,9 @@ export default {
     },
     getAllDataState(state) {
       return state
+    },
+    getDataProductById(state) {
+      return state.productsById
     }
   }
 }

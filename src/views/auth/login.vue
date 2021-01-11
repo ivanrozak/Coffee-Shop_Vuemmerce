@@ -7,8 +7,8 @@
       <div class="signup-content">
         <div class="top-header">
           <img src="../../assets/img/coffee1.png" alt="" />Coffee Shop
-          <button class="login">
-            <router-link to="/signUp">Sign Up</router-link>
+          <button class="login" @click="toPageSignUp()">
+            Sign Up
           </button>
         </div>
         <div class="width">
@@ -35,13 +35,18 @@
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Footer from '../../components/_base/Footer'
 export default {
   name: 'Login',
+  components: {
+    Footer
+  },
   data() {
     return {
       form: {
@@ -80,6 +85,9 @@ export default {
         user_email: '',
         user_password: ''
       }
+    },
+    toPageSignUp() {
+      this.$router.push('signUp')
     }
   }
 }

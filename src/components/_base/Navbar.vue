@@ -23,14 +23,15 @@ export default {
   name: 'Navbar',
   data() {
     return {
-      category: ''
+      category: '',
+      sortBy: ''
     }
   },
   methods: {
     ...mapActions(['getProducts']),
     ...mapMutations(['changePage', 'changeCategory', 'changeSortBy']),
     getCat() {
-      this.changeCategory('*')
+      this.changeCategory()
       this.changePage(1)
       this.getProducts(this.category)
     },

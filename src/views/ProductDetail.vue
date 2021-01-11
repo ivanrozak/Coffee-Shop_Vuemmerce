@@ -40,7 +40,7 @@
             </div>
           </div>
           <div class="detail-right">
-            <h1 class="centered">NAMA PRODUCT</h1>
+            <h1 class="centered">{{ produk.product_name }}</h1>
             <h6>
               Cold brewing is a method of brewing that combines ground coffee
               and cool water and uses time instead of heat to extract the
@@ -98,7 +98,7 @@
             <div class="desc">
               disini size
             </div>
-            <button class="btn-checkout">Checkout</button>
+            <button class="btn-checkout" @click="checkout()">Checkout</button>
           </div>
         </div>
       </b-container>
@@ -111,13 +111,39 @@
 // [1] step pertama import komponen
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: 'DetailProduct',
   // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
     Mainheader,
     Footer
+  },
+  computed: {
+    ...mapGetters({ produk: 'getDataProductById' })
+  },
+  data() {
+    return {
+      product_id: ''
+      // produk: []
+    }
+  },
+  created() {
+    this.product_id = this.$route.params.id
+    console.log(this.$route.params.id)
+    this.getProductById()
+    console.log('setelah product')
+    console.log(this.produk)
+  },
+  methods: {
+    ...mapActions(['getProductsById']),
+    ...mapGetters(['getDataProductById']),
+    getProductById() {
+      this.getProductsById(this.product_id)
+    },
+    checkout() {
+      console.log(this.$route.params.id)
+    }
   }
 }
 </script>
