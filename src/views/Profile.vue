@@ -53,7 +53,10 @@
                       aria-describedby="emailHelp"
                       v-model="user.user_email"
                       placeholder="zulaikha@gmail.com"
+                      readonly
                     />
+                    <br />
+                    <p><i>*Email address can't be change !</i></p>
                   </div>
                   <div style="margin-bottom: 50px;">
                     <label>Delivery address :</label>

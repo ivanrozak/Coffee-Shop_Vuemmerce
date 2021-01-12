@@ -19,6 +19,7 @@
               type="email"
               v-model="form.user_email"
               placeholder="Enter your email address"
+              v-focus
             />
             <h6>Password:</h6>
             <input
@@ -40,9 +41,11 @@
 </template>
 
 <script>
+import { toastMixins } from '../../mixins/toastMixins'
 import { mapState, mapActions } from 'vuex'
 import Footer from '../../components/_base/Footer'
 export default {
+  mixins: [toastMixins],
   name: 'Login',
   components: {
     Footer
@@ -74,10 +77,12 @@ export default {
         .then(result => {
           console.log(result)
           alert('success login')
+          // this.successToast(result.data.msg)
           this.$router.push('/')
         })
         .catch(err => {
-          alert(err.data.msg)
+          this.dangerToast(err.data.msg)
+          // alert(err.data.msg)
         })
     },
     onReset() {

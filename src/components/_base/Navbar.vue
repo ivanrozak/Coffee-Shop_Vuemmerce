@@ -58,17 +58,17 @@ export default {
     changeSortHP() {
       this.changeSortBy('product_price DESC')
       this.changePage(1)
-      this.getProducts(this.category)
+      this.getProducts(this.sortBy)
     },
     changeSortLP() {
       this.changeSortBy('product_price')
       this.changePage(1)
-      this.getProducts(this.category)
+      this.getProducts(this.sortBy)
     },
     changeSortLU() {
       this.changeSortBy('product_created_at DESC')
       this.changePage(1)
-      this.getProducts(this.category)
+      this.getProducts(this.sortBy)
     }
   }
 }

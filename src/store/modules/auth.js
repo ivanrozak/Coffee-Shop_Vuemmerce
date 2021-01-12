@@ -27,7 +27,7 @@ export default {
     login(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('http://localhost:3000/user/login', payload)
+          .post(`${process.env.VUE_APP_URL}user/login`, payload)
           .then(result => {
             // console.log(result)
             context.commit('setUser', result.data.data)
@@ -47,7 +47,7 @@ export default {
     getUserByEmails(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`http://localhost:3000/user/${payload}`)
+          .get(`${process.env.VUE_APP_URL}user/${payload}`)
           .then(result => {
             context.commit('setUserByEmail', result.data.data[0])
             console.log(result)
@@ -62,7 +62,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(
-            `http://localhost:3000/user/${context.state.user.user_email}/update`,
+            `${process.env.VUE_APP_URL}user/${context.state.user.user_email}/update`,
             payload
           )
           .then(result => {

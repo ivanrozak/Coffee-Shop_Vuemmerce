@@ -7,7 +7,7 @@ export default {
     registerUser(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post(`http://localhost:3000/user/register`, payload)
+          .post(`${process.env.VUE_APP_URL}user/register`, payload)
           .then(result => {
             resolve(result)
           })

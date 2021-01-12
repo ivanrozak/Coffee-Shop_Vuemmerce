@@ -19,6 +19,7 @@
               type="text"
               v-model="form.user_email"
               placeholder="Enter your email address"
+              v-focus
             />
             <h6>Password:</h6>
             <input
@@ -47,9 +48,11 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { toastMixins } from '../../mixins/toastMixins'
 import Footer from '../../components/_base/Footer.vue'
 
 export default {
+  mixins: [toastMixins],
   name: 'SignUp',
   components: {
     Footer
@@ -70,23 +73,21 @@ export default {
       this.$router.push('login')
     },
     register() {
-      // const { user_contact, user_email, user_password, user_role } = this.form
-      // const datas = new FormData()
-      // datas.append('user_contact', user_contact)
-      // datas.append('user_password', user_password)
-      // datas.append('user_email', user_email)
-      // datas.append('user_role', user_role)
-      // for (var pair of datas.entries()) {
-      //   console.log(pair[0] + ', ' + pair[1])
-      // }
-      this.registerUser(this.form)
-        .then(result => {
-          alert(result.data.msg)
-          // this.toPageLogin()
-        })
-        .catch(err => {
-          alert(err.data.msg)
-        })
+      if (
+        this.form.user_contact === '' ||
+        this.form.user_password === '' ||
+        this.form.user_email === ''
+      ) {
+        return this.dangerToast('Please fill All Data')
+      } else {
+        this.registerUser(this.form)
+          .then(result => {
+            this.successToast(result.data.msg)
+          })
+          .catch(err => {
+            alert(err.data.msg)
+          })
+      }
     }
   }
 }

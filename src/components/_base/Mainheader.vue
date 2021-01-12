@@ -13,7 +13,12 @@
         <router-link class="link-router" to="/product">Product</router-link>
         <router-link class="link-router" to="/yourcart">Your Cart</router-link>
         <router-link class="link-router" to="/history">History</router-link>
-        <router-link class="link-router" to="/dashboard">Dashboard</router-link>
+        <router-link
+          v-if="user.user_role === 1"
+          class="link-router"
+          to="/dashboard"
+          >Dashboard</router-link
+        >
       </div>
       <div class="header-icon col-xl-4">
         <div class="search-icons">
@@ -51,7 +56,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'Navbar',
   data() {
@@ -59,9 +64,12 @@ export default {
       searchProduct: ''
     }
   },
+  computed: {
+    ...mapGetters({ user: 'setUser' })
+  },
   methods: {
     ...mapActions(['logout', 'getProducts']),
-    ...mapMutations(['changePage']),
+    ...mapMutations(['changePage', 'search']),
     handleLogout() {
       console.log('anda berhasil logout')
       this.logout()

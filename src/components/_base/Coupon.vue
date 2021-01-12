@@ -46,19 +46,21 @@
       </ul>
     </div>
     <div class="new-promo">
-      <button>Add New Promo</button>
+      <button v-if="user.user_role === 1">Add New Promo</button>
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Coupon',
   computed: {
     rows() {
       return this.totalRows
-    }
+    },
+    ...mapGetters({ user: 'setUser' })
   },
   data() {
     return {

@@ -31,19 +31,21 @@
                     />
                     <div
                       @click="detailProduct(item.product_id)"
-                      style="padding: 0px 60px; font-weight: 600; font-size: 20px; padding: 5px 5px; "
+                      style="padding: 0px 60px; font-size: 20px; padding: 5px 20px; "
                     >
-                      {{ item.product_name }}
+                      <strong>{{ item.product_name }}</strong>
                     </div>
                     <div class="price">IDR {{ item.product_price }}</div>
                     <div v-if="role === 1">
                       <button
+                        v-if="user.user_role === 1"
                         class="btn-update"
                         @click="updateProduct(item.product_id)"
                       >
                         <img src="../assets/img/edit.png" />
                       </button>
                       <button
+                        v-if="user.user_role === 1"
                         class="btn-delete"
                         @click="deleteProduct(item.product_id)"
                       >
@@ -61,7 +63,11 @@
               @change="handlePageChange"
             ></b-pagination>
             <div class="centered">
-              <button @click="toPageAddProduct()" class="btn-brown">
+              <button
+                v-if="user.user_role === 1"
+                @click="toPageAddProduct()"
+                class="btn-brown"
+              >
                 Add New Product
               </button>
             </div>
@@ -97,7 +103,8 @@ export default {
       products: 'getDataProduct',
       page: 'getPageProduct',
       limit: 'getLimitProduct',
-      rows: 'getTotalRowsProduct'
+      rows: 'getTotalRowsProduct',
+      user: 'setUser'
     })
     // rows() {
     //   return this.totalRows
@@ -237,8 +244,7 @@ export default {
   border-radius: 15px;
 }
 .product-box .square:hover {
-  box-shadow: 0 4px 8px 0 rgba(1, 148, 99, 0.2),
-    0 6px 20px 0 rgba(10, 175, 153, 0.19);
+  border: 3px solid black;
 }
 .coupon-list {
   position: absolute;

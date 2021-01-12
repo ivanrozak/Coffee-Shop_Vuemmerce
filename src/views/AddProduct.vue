@@ -18,8 +18,14 @@
             <div class="sub-box-add-product-kiri">
               <div class="image">
                 <img
-                  style="border-radius: 50%;"
-                  src="../assets/img/image 39.png"
+                  v-if="!url"
+                  style="border-radius: 50%; width: 200px;"
+                  src="../assets/img/noimage.jpg"
+                />
+                <img
+                  v-if="url"
+                  style="border-radius: 50%; width: 200px;"
+                  :src="url"
                 />
               </div>
               <br />
@@ -248,7 +254,8 @@ export default {
         { value: '3', text: 'Foods' },
         { value: '4', text: 'Add-on' }
       ],
-      checked1: false
+      checked1: false,
+      url: ''
     }
   },
   methods: {
@@ -307,8 +314,10 @@ export default {
     },
     handleFile(event) {
       console.log(event)
+      const file = event.target.files[0]
+      this.url = URL.createObjectURL(file)
       this.form.product_image = event.target.files[0]
-      this.getProducts()
+      // this.getProducts()
     },
     chooseFile() {
       document.getElementById('fileUpload').click()

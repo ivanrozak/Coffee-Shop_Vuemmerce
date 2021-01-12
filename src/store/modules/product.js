@@ -43,7 +43,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .get(
-            `http://localhost:3000/product?product_name=${name}&page=${context.state.page}&limit=${context.state.limit}&sortBy=${context.state.sortBy}&category_id=${context.state.category}`
+            `${process.env.VUE_APP_URL}product?product_name=${name}&page=${context.state.page}&limit=${context.state.limit}&sortBy=${context.state.sortBy}&category_id=${context.state.category}`
           )
           .then(response => {
             console.log(response)
@@ -64,7 +64,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .get(
-            `http://localhost:3000/product?page=${context.state.page}&limit=${context.state.limit}&sortBy=${context.state.sortBy}&category_id=${payload}`
+            `${process.env.VUE_APP_URL}product?page=${context.state.page}&limit=${context.state.limit}&sortBy=${context.state.sortBy}&category_id=${payload}`
           )
           .then(response => {
             console.log(response)
@@ -85,7 +85,7 @@ export default {
       console.log(context)
       return new Promise((resolve, reject) => {
         axios
-          .post('http://localhost:3000/product/', payload)
+          .post(`${process.env.VUE_APP_URL}product/`, payload)
           .then(response => {
             console.log(response)
             resolve(response)
@@ -99,7 +99,7 @@ export default {
     getProductsById(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`http://localhost:3000/product/${payload}`)
+          .get(`${process.env.VUE_APP_URL}product/${payload}`)
           .then(response => {
             console.log(response)
             context.commit('setProductById', response.data.data[0])
@@ -114,7 +114,10 @@ export default {
     updateProducts(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .patch(`http://localhost:3000/product/${payload.id}`, payload.dataSet)
+          .patch(
+            `${process.env.VUE_APP_URL}product/${payload.id}`,
+            payload.dataSet
+          )
           .then(response => {
             console.log(response)
             resolve(response)
@@ -128,7 +131,7 @@ export default {
     deleteProducts(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .delete(`http://localhost:3000/product/${payload}`)
+          .delete(`${process.env.VUE_APP_URL}product/${payload}`)
           .then(res => {
             resolve(res)
           })
