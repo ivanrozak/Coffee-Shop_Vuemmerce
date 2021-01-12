@@ -15,13 +15,25 @@
           <h3 class="centered">Sign Up</h3>
           <form>
             <h6>Email Address:</h6>
-            <input type="text" placeholder="Enter your email address" />
+            <input
+              type="text"
+              v-model="form.user_email"
+              placeholder="Enter your email address"
+            />
             <h6>Password:</h6>
-            <input type="text" placeholder="Enter your password" />
+            <input
+              type="text"
+              v-model="form.user_password"
+              placeholder="Enter your password"
+            />
             <h6>Phone Number:</h6>
-            <input type="text" placeholder="Enter your phone number" />
+            <input
+              type="text"
+              v-model="form.user_contact"
+              placeholder="Enter your phone number"
+            />
           </form>
-          <button class="yellow">Sign Up</button>
+          <button class="yellow" @click="register()">Sign Up</button>
           <button class="google">
             <img src="../../assets/img/google.png" alt="" />Sign up with Google
           </button>
@@ -34,6 +46,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Footer from '../../components/_base/Footer.vue'
 
 export default {
@@ -41,9 +54,39 @@ export default {
   components: {
     Footer
   },
+  data() {
+    return {
+      form: {
+        user_contact: '',
+        user_email: '',
+        user_password: '',
+        user_role: '0'
+      }
+    }
+  },
   methods: {
+    ...mapActions(['registerUser']),
     toPageLogin() {
       this.$router.push('login')
+    },
+    register() {
+      // const { user_contact, user_email, user_password, user_role } = this.form
+      // const datas = new FormData()
+      // datas.append('user_contact', user_contact)
+      // datas.append('user_password', user_password)
+      // datas.append('user_email', user_email)
+      // datas.append('user_role', user_role)
+      // for (var pair of datas.entries()) {
+      //   console.log(pair[0] + ', ' + pair[1])
+      // }
+      this.registerUser(this.form)
+        .then(result => {
+          alert(result.data.msg)
+          // this.toPageLogin()
+        })
+        .catch(err => {
+          alert(err.data.msg)
+        })
     }
   }
 }

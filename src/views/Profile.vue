@@ -14,9 +14,10 @@
                 src="../assets/img/image 39.png"
               />
               <br />
-              <h6>Zulaikha</h6>
-              <p>zulaikha17@gmail.com</p>
-              <button class="orange btn-sm">
+              <h6>{{ user.user_name }}</h6>
+              <p>{{ user.user_email }}</p>
+              <input id="fileUpload" type="file" @change="handleFile" hidden />
+              <button @click="chooseFile" class="orange btn-sm">
                 Choose photo
               </button>
               <button class="brown btn-sm">
@@ -29,13 +30,13 @@
                 Do you want to save <br />
                 the change ?
               </h6>
-              <button class="brown">
+              <button class="brown" @click="updateProfile()">
                 Save Change
               </button>
               <button class="orange">
                 Cancel
               </button>
-              <button class="white">
+              <button class="white" @click="logout()">
                 Log Out
               </button>
             </div>
@@ -50,6 +51,7 @@
                       class="form-control"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
+                      v-model="user.user_email"
                       placeholder="zulaikha@gmail.com"
                     />
                   </div>
@@ -57,59 +59,64 @@
                     <label>Delivery address :</label>
                     <input
                       class="form-control"
+                      v-model="user.user_address"
                       placeholder="Enter delivery address"
                     />
                   </div>
                   <h4 style="font-weight: 900;">Details</h4>
                   <div style="margin-top: 30px; margin-bottom: 50px;">
                     <label>Display name :</label>
-                    <input class="form-control" placeholder="Zulaikha" />
+                    <input
+                      class="form-control"
+                      v-model="user.user_name"
+                      placeholder="Zulaikha"
+                    />
                   </div>
                   <div style="margin-bottom: 50px;">
                     <label>First name :</label>
-                    <input class="form-control" placeholder="Zulaikha" />
+                    <input
+                      class="form-control"
+                      v-model="user.user_firstname"
+                      placeholder="Zulaikha"
+                    />
                   </div>
                   <div style="margin-bottom: 50px;">
                     <label>Last name :</label>
-                    <input class="form-control" placeholder="Nirmala" />
+                    <input
+                      class="form-control"
+                      v-model="user.user_lastname"
+                      placeholder="Nirmala"
+                    />
                   </div>
                 </div>
                 <div class="user-profile-form-right">
                   <div style="margin-top: 60px; margin-bottom: 50px;">
                     <label>Mobile number :</label>
-                    <input class="form-control" placeholder="+6285934958547" />
+                    <input
+                      class="form-control"
+                      user.user_contact
+                      placeholder="+6285934958547"
+                    />
                   </div>
                   <div style="margin-top: 230px; margin-bottom: 50px;">
                     <label>DD/MM/YY :</label>
-                    <input class="form-control" placeholder="03/04/09" />
+                    <input
+                      class="form-control"
+                      v-model="user.user_birth"
+                      placeholder="03/04/09"
+                    />
                   </div>
                 </div>
               </div>
               <div class="selector">
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio1"
-                    value="option1"
-                  />
-                  <label class="form-check-label" for="inlineRadio1"
-                    >Male</label
-                  >
-                </div>
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio2"
-                    value="option2"
-                  />
-                  <label class="form-check-label" for="inlineRadio2"
-                    >Female</label
-                  >
-                </div>
+                <b-form-group v-slot="{ ariaDescribedby }">
+                  <b-form-radio-group
+                    v-model="user.user_gender"
+                    :options="options"
+                    :aria-describedby="ariaDescribedby"
+                    name="radio-inline"
+                  ></b-form-radio-group>
+                </b-form-group>
               </div>
             </div>
           </div>
@@ -125,6 +132,7 @@
 
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
+import { mapGetters, mapActions } from 'vuex'
 // import FormInput from '../components/_base/FormInput'
 
 export default {
@@ -134,6 +142,68 @@ export default {
     Mainheader,
     Footer
     // FormInput
+  },
+  mounted() {
+    this.getUserByEmail()
+  },
+  computed: {
+    ...mapGetters({ user: 'setUser' })
+  },
+  data() {
+    return {
+      options: [
+        { text: 'Male', value: 'male' },
+        { text: 'Female', value: 'female' }
+      ]
+    }
+  },
+  methods: {
+    ...mapGetters(['setUser']),
+    ...mapActions(['getUserByEmails', 'updateProfileUsers']),
+    getUserByEmail() {
+      this.getUserByEmails(this.user.user_email)
+    },
+    updateProfile() {
+      const {
+        user_name,
+        user_firstname,
+        user_lastname,
+        user_gender,
+        user_contact,
+        user_image,
+        user_birth,
+        user_address
+      } = this.user
+      const data = new FormData()
+      data.append('user_name', user_name)
+      data.append('user_firstname', user_firstname)
+      data.append('user_lastname', user_lastname)
+      data.append('user_gender', user_gender)
+      data.append('user_contact', user_contact)
+      data.append('user_image', user_image)
+      data.append('user_birth', user_birth)
+      data.append('user_address', user_address)
+      for (var pair of data.entries()) {
+        console.log(pair[0] + ', ' + pair[1])
+      }
+      this.updateProfileUsers(data)
+        .then(result => {
+          alert(result.data.msg)
+        })
+        .catch(err => {
+          alert(err.data.msg)
+        })
+    },
+    logout() {
+      console.log(this.data.user_email)
+    },
+    handleFile(event) {
+      console.log(event)
+      this.user.user_image = event.target.files[0]
+    },
+    chooseFile() {
+      document.getElementById('fileUpload').click()
+    }
   }
 }
 </script>

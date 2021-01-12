@@ -203,26 +203,6 @@ export default {
   data() {
     return {
       product_id: '',
-      // form: {
-      //   category_id: 'null',
-      //   product_name: '',
-      //   product_desc: '',
-      //   product_qty: 'null',
-      //   product_price: '',
-      //   product_image: '',
-      //   product_status: '1',
-      //   time_start: 'null',
-      //   time_end: 'null',
-      //   product_sizeR: '',
-      //   product_sizeL: '',
-      //   product_sizeXL: '',
-      //   product_size250: '',
-      //   product_size300: '',
-      //   product_size500: '',
-      //   product_deliv_home: '',
-      //   product_deliv_dine: '',
-      //   product_deliv_take: ''
-      // },
       alert: false,
       timeStart: [
         { value: null, text: 'Select start hour' },

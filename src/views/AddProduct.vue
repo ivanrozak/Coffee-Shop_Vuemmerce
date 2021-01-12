@@ -297,13 +297,13 @@ export default {
       for (var pair of data.entries()) {
         console.log(pair[0] + ', ' + pair[1])
       }
-      this.postProduct(data)
-        .then(result => {
-          alert(result.data.msg)
-        })
-        .catch(err => {
-          alert(err.data.msg)
-        })
+      // this.postProduct(data)
+      //   .then(result => {
+      //     alert(result.data.msg)
+      //   })
+      //   .catch(err => {
+      //     alert(err.data.msg)
+      //   })
     },
     handleFile(event) {
       console.log(event)

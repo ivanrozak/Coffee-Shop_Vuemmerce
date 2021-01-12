@@ -15,6 +15,9 @@ export default {
       // console.log(state.user)
       // console.log(state.token)
     },
+    setUserByEmail(state, payload) {
+      state.user = payload
+    },
     delUser(state) {
       state.user = {}
       state.token = null
@@ -39,6 +42,36 @@ export default {
         //   console.log(payload)
         //   console.log(resolve)
         //   console.log(reject)
+      })
+    },
+    getUserByEmails(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`http://localhost:3000/user/${payload}`)
+          .then(result => {
+            context.commit('setUserByEmail', result.data.data[0])
+            console.log(result)
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
+    updateProfileUsers(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .patch(
+            `http://localhost:3000/user/${context.state.user.user_email}/update`,
+            payload
+          )
+          .then(result => {
+            console.log(result)
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
       })
     },
     logout(context) {
