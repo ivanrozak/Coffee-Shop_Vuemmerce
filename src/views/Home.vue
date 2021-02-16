@@ -4,17 +4,28 @@
     <div class="homePage">
       <div class="banner">
         <b-container>
-          <div class="banner-left">
-            <h1>Start Your Day with Coffee and Good Meals</h1>
-            <br />
-            <p>
-              We provide high quality beans, good taste, and healthy meals made
-              by love just for you. Start your day with us for a bigger smile!
-            </p>
-            <br />
-            <br />
-            <button>Get Started</button>
+          <div>
+            <b-input-group class="input">
+              <b-input-group-prepend>
+                <span class="input-group-text"
+                  ><b-icon icon="search"></b-icon
+                ></span>
+              </b-input-group-prepend>
+              <b-form-input placeholder="Search"> </b-form-input>
+            </b-input-group>
           </div>
+          <h1>
+            Start Your Day with <br />
+            Coffee and Good Meals
+          </h1>
+          <br />
+          <p>
+            We provide high quality beans, good taste, and healthy <br />
+            meals made by love just for you. Start your day with us <br />
+            for a bigger smile!
+          </p>
+          <br />
+          <b-button class="btn-start">Get Started</b-button>
         </b-container>
       </div>
       <b-container>
@@ -44,7 +55,11 @@
           </div>
         </div>
         <div class="home-details">
-          <img src="../assets/img/teamwork.png" alt="" />
+          <b-img
+            :src="require('../assets/img/teamwork.png')"
+            fluid
+            alt="Responsive image"
+          ></b-img>
           <div class="details-right">
             <h4>We Provide Good Coffee and Healthy Meals</h4>
             <br />
@@ -58,15 +73,80 @@
             <li>Free member card with minimum purchase of IDR 200.000.</li>
           </div>
         </div>
-        <div class="fav centered">
+        <div class="centered">
           <h4>Here is People's Favourite</h4>
           <br />
           <p>
             Let's choose and have a bit taste of people's favourite. It might be
             yours too!
           </p>
-          <div class="card-product">
-            disini perulangan product
+          <div class="card-product mt-5">
+            <div class="card">
+              <div class="mb-5">
+                <b-img
+                  :src="require('../assets/img/float.png')"
+                  v-bind="mainProps"
+                  rounded="circle"
+                ></b-img>
+              </div>
+              <h5><strong>Hazelnut Latte</strong></h5>
+              <ul style="text-align: left;">
+                <li>Hazelnut Syrup</li>
+                <li>Vanilla Whiped Cream</li>
+                <li>Ice / Hot</li>
+                <li>Sliced Banana on Top</li>
+              </ul>
+              <h4><strong>IDR. 25.000</strong></h4>
+              <div>
+                <b-button class="order mt-3" variant="outline-warning"
+                  ><strong>Order Now</strong></b-button
+                >
+              </div>
+            </div>
+            <div class="card">
+              <div class="mb-5">
+                <b-img
+                  :src="require('../assets/img/float.png')"
+                  v-bind="mainProps"
+                  rounded="circle"
+                ></b-img>
+              </div>
+              <h5><strong>Hazelnut Latte</strong></h5>
+              <ul style="text-align: left;">
+                <li>Hazelnut Syrup</li>
+                <li>Vanilla Whiped Cream</li>
+                <li>Ice / Hot</li>
+                <li>Sliced Banana on Top</li>
+              </ul>
+              <h4><strong>IDR. 25.000</strong></h4>
+              <div>
+                <b-button class="order mt-3" variant="outline-warning"
+                  ><strong>Order Now</strong></b-button
+                >
+              </div>
+            </div>
+            <div class="card">
+              <div class="mb-5">
+                <b-img
+                  :src="require('../assets/img/float.png')"
+                  v-bind="mainProps"
+                  rounded="circle"
+                ></b-img>
+              </div>
+              <h5><strong>Hazelnut Latte</strong></h5>
+              <ul style="text-align: left;">
+                <li>Hazelnut Syrup</li>
+                <li>Vanilla Whiped Cream</li>
+                <li>Ice / Hot</li>
+                <li>Sliced Banana on Top</li>
+              </ul>
+              <h4><strong>IDR. 25.000</strong></h4>
+              <div>
+                <b-button class="order mt-3" variant="outline-warning"
+                  ><strong>Order Now</strong></b-button
+                >
+              </div>
+            </div>
           </div>
         </div>
         <div class="store-map centered">
@@ -96,16 +176,18 @@
             These are the stories ofour customer who have visited us with great
             pleasure.
           </p>
-          <div>
-            carousel here
-          </div>
+          <vue-glide class="demo" :bullet="true">
+            <vue-glide-slide v-for="i in 10" :key="i">
+              Slide {{ i }}
+            </vue-glide-slide>
+          </vue-glide>
         </div>
         <div class="promo">
           <div>
             <h4>Check our promo today!</h4>
             <p>Lets see the deals and pick yours!</p>
           </div>
-          <button>See Promo</button>
+          <b-button class="btn-promo">See Promo</b-button>
         </div>
       </b-container>
     </div>
@@ -119,20 +201,24 @@
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import { mapGetters } from 'vuex'
-// import FormInput from '../components/_base/FormInput'
+import VueGlide from '../components/_base/Home/Glide'
+import VueGlideSlide from '../components/_base/Home/GlideSlide'
 
 export default {
   name: 'Home',
   // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
     Mainheader,
-    Footer
-    // FormInput
+    Footer,
+    [VueGlide.name]: VueGlide,
+    [VueGlideSlide.name]: VueGlideSlide
   },
   data() {
     return {
-      name: 'Ivan Rozak',
-      message: 'Hello World',
+      mainProps: {
+        width: 150,
+        height: 150
+      },
       rule: 1,
       searchData: 'Sepatu Baru',
       dataProduct: [
@@ -193,12 +279,14 @@ export default {
   background-position: top;
   background-size: cover;
   color: white;
+  padding-top: 20px;
+  padding-bottom: 120px;
 }
-.banner-left {
-  padding: 50px 0px 150px;
-  width: 50%;
+.input {
+  margin-left: auto;
+  width: 300px;
 }
-button {
+.btn-start {
   background-color: #ffba33;
   border-radius: 10px;
   border: none;
@@ -207,15 +295,17 @@ button {
   color: #6a4029;
   font-weight: bold;
 }
+.btn-start:hover {
+  background-color: #ffba33;
+}
 h1 {
   font-weight: bold;
 }
 .statistic {
   padding: 30px 30px;
-  position: absolute;
-  top: 485px;
+  top: -60px;
+  position: relative;
   display: flex;
-  width: 74%;
   border-radius: 10px;
   background-color: white;
   justify-content: space-evenly;
@@ -239,10 +329,9 @@ h1 {
 }
 .vl {
   height: 70px;
-  border-left: 0.5px solid rgb(158, 158, 158);
+  border-left: 0.5px solid rgb(221, 221, 221);
 }
 .home-details {
-  padding-top: 120px;
   display: flex;
 }
 .home-details li {
@@ -253,6 +342,30 @@ h1 {
 }
 .home-details img {
   width: 50%;
+}
+.card-product {
+  display: flex;
+  justify-content: space-between;
+}
+.card {
+  flex: 1;
+  text-align: center;
+  padding: 30px 10px;
+  margin: 0px 10px;
+}
+.card li {
+  margin-top: 20px;
+  background: url('../assets/img/check li2.png') no-repeat left center;
+  padding: 3px 0px 3px 30px;
+  list-style: none;
+}
+.card ul {
+  height: 280px;
+}
+.order {
+  color: #6a4029;
+  border-radius: 20px;
+  padding: 10px 40px;
 }
 h4 {
   font-weight: 900;
@@ -281,12 +394,37 @@ h4 {
 }
 .promo {
   position: relative;
-  bottom: -30px;
+  bottom: -40px;
   justify-content: space-between;
   display: flex;
+  align-items: center;
   padding: 30px 70px;
   border-radius: 10px;
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.btn-promo {
+  background-color: #ffba33;
+  border-radius: 10px;
+  border: none;
+  height: 50px;
+  width: 200px;
+  color: #6a4029;
+  font-weight: bold;
+}
+.btn-promo:hover {
+  background-color: #ffba33;
+}
+.glide {
+  /* display: flex; */
+  border: 2px solid #ccc;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-size: 36px;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: all 0.3s;
+  opacity: 0.3;
 }
 </style>

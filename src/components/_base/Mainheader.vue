@@ -1,12 +1,11 @@
 <template>
   <header>
     <b-container class="mainheader">
-      <div class="home-icon col-xl-3">
-        <router-link to="/"
-          ><img
-            style="margin-right: 10px;"
-            src="../../assets/img/coffee1.png"/></router-link
-        >Coffee Shop
+      <div @click="toHome()" class="home-icon col-xl-3">
+        <img
+          style="margin-right: 10px;"
+          src="../../assets/img/coffee1.png"
+        />Coffee Shop
       </div>
       <div class="header-menu col-xl-5">
         <router-link class="link-router" to="/">Home</router-link>
@@ -22,15 +21,21 @@
       </div>
       <div class="header-icon col-xl-4">
         <div class="search-icons">
-          <img src="../../assets/img/Vector.png" />
-          <input
-            type="text"
-            v-model="searchProduct"
-            placeholder="Search"
-            @keyup.enter="search()"
-          />
+          <b-input-group class="input">
+            <b-input-group-prepend>
+              <span class="input-group-text"
+                ><b-icon icon="search"></b-icon
+              ></span>
+            </b-input-group-prepend>
+            <b-form-input
+              v-model="searchProduct"
+              placeholder="Search"
+              @keyup.enter="searchs()"
+            >
+            </b-form-input>
+          </b-input-group>
         </div>
-        <router-link to="#"><img src="../../assets/img/chat.png"/></router-link>
+        <!-- <router-link to="#"><img src="../../assets/img/chat.png"/></router-link> -->
         <b-dropdown
           size="sm"
           variant="link"
@@ -74,12 +79,17 @@ export default {
       console.log('anda berhasil logout')
       this.logout()
     },
-    search() {
+    searchs() {
+      this.search(this.searchProduct)
       this.changePage(1)
-      this.getProducts(this.searchProduct)
+      this.getProducts()
+      this.searchProduct = ''
     },
     handleProfile() {
       this.$router.push('profile')
+    },
+    toHome() {
+      this.$router.push('/')
     }
   }
 }
@@ -102,6 +112,7 @@ export default {
   display: flex;
   justify-content: left;
   align-items: center;
+  cursor: pointer;
 }
 .header-menu {
   display: flex;
@@ -126,16 +137,8 @@ hr {
   margin-bottom: 0px;
 }
 input {
-  width: 120px;
-  border: none;
-  background-color: #f0efef;
-}
-.search-icons {
-  padding: 5px 20px;
-  display: flex;
-  align-items: center;
-  border-radius: 20px;
-  background-color: #f0efef;
+  width: 140px !important;
+  margin-right: 10px;
 }
 
 .search-icons img {

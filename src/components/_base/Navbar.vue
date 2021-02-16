@@ -29,46 +29,47 @@ export default {
   },
   methods: {
     ...mapActions(['getProducts']),
-    ...mapMutations(['changePage', 'changeCategory', 'changeSortBy']),
+    ...mapMutations(['changePage', 'changeCategory', 'changeSortBy', 'search']),
     getCat() {
-      this.changeCategory()
+      this.changeCategory('')
+      this.search('')
       this.changePage(1)
-      this.getProducts(this.category)
+      this.getProducts()
     },
     getCat1() {
       this.changeCategory(1)
       this.changePage(1)
-      this.getProducts(this.category)
+      this.getProducts()
     },
     getCat2() {
       this.changeCategory(2)
       this.changePage(1)
-      this.getProducts(this.category)
+      this.getProducts()
     },
     getCat3() {
       this.changeCategory(3)
       this.changePage(1)
-      this.getProducts(this.category)
+      this.getProducts()
     },
     getCat4() {
       this.changeCategory(4)
       this.changePage(1)
-      this.getProducts(this.category)
+      this.getProducts()
     },
     changeSortHP() {
       this.changeSortBy('product_price DESC')
       this.changePage(1)
-      this.getProducts(this.sortBy)
+      this.getProducts()
     },
     changeSortLP() {
       this.changeSortBy('product_price')
       this.changePage(1)
-      this.getProducts(this.sortBy)
+      this.getProducts()
     },
     changeSortLU() {
       this.changeSortBy('product_created_at DESC')
       this.changePage(1)
-      this.getProducts(this.sortBy)
+      this.getProducts()
     }
   }
 }

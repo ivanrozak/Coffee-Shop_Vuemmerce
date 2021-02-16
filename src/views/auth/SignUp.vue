@@ -1,9 +1,7 @@
 <template>
   <div class="signUp">
     <div class="content-top">
-      <div class="side-image">
-        <!-- <img src="../assets/img/side-signup.png" alt="" /> -->
-      </div>
+      <div class="side-image"></div>
       <div class="signup-content">
         <div class="top-header">
           <img src="../../assets/img/coffee1.png" alt="" />Coffee Shop
@@ -13,31 +11,36 @@
         </div>
         <div class="width">
           <h3 class="centered">Sign Up</h3>
-          <form>
+          <b-form @submit.prevent="onSubmit">
             <h6>Email Address:</h6>
-            <input
-              type="text"
+            <b-form-input
               v-model="form.user_email"
+              type="email"
               placeholder="Enter your email address"
+              required
               v-focus
-            />
+            ></b-form-input>
             <h6>Password:</h6>
-            <input
-              type="text"
+            <b-form-input
               v-model="form.user_password"
+              type="password"
               placeholder="Enter your password"
-            />
+              required
+              v-focus
+            ></b-form-input>
             <h6>Phone Number:</h6>
-            <input
-              type="text"
+            <b-form-input
               v-model="form.user_contact"
+              type="number"
               placeholder="Enter your phone number"
-            />
-          </form>
-          <button class="yellow" @click="register()">Sign Up</button>
-          <button class="google">
-            <img src="../../assets/img/google.png" alt="" />Sign up with Google
-          </button>
+              required
+            ></b-form-input>
+            <button class="yellow" type="submit">Sign Up</button>
+            <button class="google">
+              <img src="../../assets/img/google.png" alt="" />Sign up with
+              Google
+            </button>
+          </b-form>
         </div>
       </div>
     </div>
@@ -72,7 +75,7 @@ export default {
     toPageLogin() {
       this.$router.push('login')
     },
-    register() {
+    onSubmit() {
       if (
         this.form.user_contact === '' ||
         this.form.user_password === '' ||
@@ -179,5 +182,20 @@ form input {
 }
 .centered {
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .side-image {
+    display: none;
+  }
+  .signup-content {
+    flex: 1;
+  }
+  .top-header {
+    padding: 20px 20px;
+  }
+  .width {
+    padding: 0px 20px;
+  }
 }
 </style>

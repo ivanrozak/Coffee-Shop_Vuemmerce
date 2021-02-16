@@ -7,6 +7,8 @@ export default {
     products: [],
     totalRows: null,
     sortBy: '',
+    category: '',
+    search: '',
     productsById: {}
   },
   mutations: {
@@ -29,30 +31,18 @@ export default {
     },
     setProductById(state, payload) {
       state.productsById = payload
-      console.log(state.productsById)
     }
   },
   actions: {
-    getProducts(context, payload) {
-      let name
-      if (payload) {
-        name = payload
-      } else {
-        name = ''
-      }
+    getProducts(context) {
       return new Promise((resolve, reject) => {
         axios
           .get(
-            `${process.env.VUE_APP_URL}product?product_name=${name}&page=${context.state.page}&limit=${context.state.limit}&sortBy=${context.state.sortBy}&category_id=${context.state.category}`
+            `${process.env.VUE_APP_URL}product?product_name=${context.state.search}&page=${context.state.page}&limit=${context.state.limit}&sortBy=${context.state.sortBy}&category_id=${context.state.category}`
           )
           .then(response => {
-            console.log(response)
-            context.commit('search', payload)
             context.commit('setProduct', response.data)
             resolve(response)
-            //   console.log(response)
-            //   state.totalRows = response.data.pagination.totalData
-            //   state.products = response.data.data
           })
           .catch(error => {
             console.log(error.response)

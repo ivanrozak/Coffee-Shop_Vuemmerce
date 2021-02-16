@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="content-top">
-      <div class="side-image">
-        <!-- <img src="../assets/img/side-signup.png" alt="" /> -->
-      </div>
+      <div class="side-image"></div>
       <div class="signup-content">
         <div class="top-header">
           <img src="../../assets/img/coffee1.png" alt="" />Coffee Shop
@@ -12,23 +10,26 @@
           </button>
         </div>
         <div class="width">
-          <h3 class="centered">Login</h3>
-          <b-form @submit.prevent="onSubmit" @reset.prevent="onReset">
+          <h3 class="centered mt-5">Login</h3>
+          <b-form @submit.prevent="onSubmit">
             <h6>Email Address:</h6>
-            <input
-              type="email"
+            <b-form-input
               v-model="form.user_email"
+              type="email"
               placeholder="Enter your email address"
+              required
               v-focus
-            />
+            ></b-form-input>
             <h6>Password:</h6>
-            <input
-              type="password"
+            <b-form-input
               v-model="form.user_password"
+              type="password"
               placeholder="Enter your password"
-            />
+              required
+              v-focus
+            ></b-form-input>
+            <router-link to="/"><h6>Forgot Password?</h6></router-link>
             <button class="yellow" type="submit">Login</button>
-            <button class="reset" type="reset">Reset</button>
             <button class="google">
               <img src="../../assets/img/google.png" alt="" />Login with Google
             </button>
@@ -59,17 +60,10 @@ export default {
     }
   },
   computed: {
-    //   mapState & mapGetters masuk sini
-    //   [1] cara 1
-    // dataName() {
-    //   return this.$store.state.name
-    // }
-    // [2] cara 2, bisa dipilih salah 1
     ...mapState(['name']),
     ...mapState({ dataName: 'name' })
   },
   methods: {
-    //   mapActions & mapMutation masuk sini
     ...mapActions(['login']),
     onSubmit() {
       console.log(this.form)
@@ -77,7 +71,6 @@ export default {
         .then(result => {
           console.log(result)
           alert('success login')
-          // this.successToast(result.data.msg)
           this.$router.push('/')
         })
         .catch(err => {
@@ -189,5 +182,14 @@ form input {
 }
 .centered {
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .side-image {
+    display: none;
+  }
+  .signup-content {
+    flex: 1;
+  }
 }
 </style>
