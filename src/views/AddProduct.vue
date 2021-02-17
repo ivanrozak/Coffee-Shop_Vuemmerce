@@ -73,7 +73,7 @@
                 <div class="spacing"></div>
                 <h6>Price :</h6>
                 <input
-                  type="text"
+                  type="number"
                   v-model="form.product_price"
                   class="form-control"
                   placeholder="Type the price"

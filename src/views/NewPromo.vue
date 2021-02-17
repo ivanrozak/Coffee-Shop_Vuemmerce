@@ -18,70 +18,82 @@
             <div class="sub-box-add-promo-kiri">
               <div class="image">
                 <img
-                  style="border-radius: 50%;"
-                  src="../assets/img/image 39.png"
+                  v-if="!url"
+                  style="border-radius: 50%; width: 200px;"
+                  src="../assets/img/noimage.jpg"
+                />
+                <img
+                  v-if="url"
+                  style="border-radius: 50%; width: 200px;"
+                  :src="url"
                 />
               </div>
               <br />
 
-              <button class="black">
-                Take a picture
-              </button>
-              <button class="orange">
+              <input id="fileUpload" type="file" @change="handleFile" hidden />
+              <button @click="chooseFile" class="orange">
                 Choose from gallery
               </button>
               <div class="spacing"></div>
-              <h6>Enter the discount :</h6>
-              <input type="text" placeholder="Input discount" />
-              <div class="spacing"></div>
-              <h6>Expire date :</h6>
-              <input type="text" placeholder="Select start date" />
-              <input type="text" placeholder="Select end date" />
-              <div class="spacing"></div>
-              <h6>Input coupon code :</h6>
-              <input type="text" placeholder="Input code" />
+              <h6 class="centered">Expire date :</h6>
+              <p>Start date :</p>
+              <b-form-datepicker
+                id="datepicker-buttons1"
+                v-model="form.coupon_start"
+                class="mb-lg-4"
+                today-button
+                reset-button
+                close-button
+                locale="en"
+              ></b-form-datepicker>
+              <p>End date :</p>
+              <b-form-datepicker
+                id="datepicker-buttons1"
+                v-model="form.coupon_end"
+                class="mb-lg-4"
+                today-button
+                reset-button
+                close-button
+                locale="en"
+              ></b-form-datepicker>
             </div>
             <div class="sub-box-add-promo-kanan">
               <div class="add-promo-form-left">
-                <h6>Name :</h6>
+                <h6>Input promo code :</h6>
                 <input
                   type="text"
-                  placeholder="Type product name max 50 characters"
-                />
-                <div class="spacing"></div>
-                <h6>Normal Price :</h6>
-                <input
                   class="form-control"
-                  placeholder="Type the normal price"
+                  v-model="form.coupon_code"
+                  placeholder="Type promo code"
                 />
                 <div class="spacing"></div>
-                <h6>Description :</h6>
+                <h6>Enter the discount :</h6>
                 <input
+                  type="number"
                   class="form-control"
-                  placeholder="Describe your promo max 150 characters"
+                  v-model="form.coupon_discount"
+                  placeholder="Type the discount in %"
                 />
                 <div class="spacing"></div>
-                <h6>Input product size :</h6>
-                <p>Click size you want to use for this product</p>
-                <div class="btn-group">
-                  <button class="round-on"><h4>R</h4></button>
-                  <button class="round-on"><h4>L</h4></button>
-                  <button class="round-on"><h4>XL</h4></button>
-                  <button class="round-off">250 gr</button>
-                  <button class="round-off">300 gr</button>
-                  <button class="round-off">500 gr</button>
-                </div>
+                <h6>Minimum purchase :</h6>
+                <input
+                  type="number"
+                  class="form-control"
+                  v-model="form.coupon_min_purchase"
+                  placeholder="Type the minimum Purchase"
+                />
                 <div class="spacing"></div>
-                <h6>Input delivery methods :</h6>
-                <p>Click methods you want to use for this product</p>
-                <div class="btn-group">
-                  <button class="btn-on"><h6>Home delivery</h6></button>
-                  <button class="btn-on"><h6>Dine in</h6></button>
-                  <button class="btn-off"><h6>Take Away</h6></button>
-                </div>
+                <h6>Promo limit :</h6>
+                <input
+                  type="number"
+                  class="form-control"
+                  v-model="form.coupon_max_limit"
+                  placeholder="Type the promo limit"
+                />
                 <div class="spacing"></div>
-                <button class="brown">Save Promo</button>
-                <button class="white">Cancel</button>
+
+                <button @click="addPromo()" class="brown">Save Promo</button>
+                <button @click="toHome()" class="white">Cancel</button>
               </div>
             </div>
           </div>
@@ -97,15 +109,71 @@
 
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
+import { mapActions } from 'vuex'
 // import FormInput from '../components/_base/FormInput'
 
 export default {
   name: 'Home',
-  // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
     Mainheader,
     Footer
-    // FormInput
+  },
+  data() {
+    return {
+      form: {
+        coupon_code: null,
+        coupon_discount: null,
+        coupon_image: '',
+        coupon_min_purchase: null,
+        coupon_max_limit: null,
+        coupon_start: null,
+        coupon_end: null
+      },
+      url: ''
+    }
+  },
+  methods: {
+    ...mapActions(['postCoupons']),
+    addPromo() {
+      const {
+        coupon_code,
+        coupon_discount,
+        coupon_image,
+        coupon_min_purchase,
+        coupon_max_limit,
+        coupon_start,
+        coupon_end
+      } = this.form
+      const data = new FormData()
+      data.append('coupon_code', coupon_code)
+      data.append('coupon_discount', coupon_discount)
+      data.append('coupon_image', coupon_image)
+      data.append('coupon_min_purchase', coupon_min_purchase)
+      data.append('coupon_max_limit', coupon_max_limit)
+      data.append('coupon_start', coupon_start)
+      data.append('coupon_end', coupon_end)
+
+      this.postCoupons(data)
+        .then(result => {
+          alert(result.data.msg)
+          this.$router.push('/product')
+        })
+        .catch(err => {
+          alert(err.data.msg)
+        })
+    },
+    handleFile(event) {
+      console.log(event)
+      const file = event.target.files[0]
+      this.url = URL.createObjectURL(file)
+      this.form.coupon_image = event.target.files[0]
+    },
+    chooseFile() {
+      document.getElementById('fileUpload').click()
+    },
+    toHome() {
+      this.$router.push('/product')
+    }
   }
 }
 </script>
@@ -134,7 +202,7 @@ main {
   font-family: 'Rubik';
 }
 .add-promo {
-  height: 1050px;
+  height: 750px;
 }
 .sub-box-add-promo {
   margin: 0px 0px;
@@ -145,7 +213,7 @@ main {
 }
 .sub-box-add-promo-kiri {
   flex: 1;
-  padding: 80px 60px;
+  padding: 30px 60px;
 }
 .image {
   text-align: center;

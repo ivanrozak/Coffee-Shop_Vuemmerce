@@ -36,7 +36,7 @@
                       <strong>{{ item.product_name }}</strong>
                     </div>
                     <div class="price">IDR {{ item.product_price }}</div>
-                    <div v-if="role === 1">
+                    <div>
                       <button
                         v-if="user.user_role === 1"
                         class="btn-update"
@@ -123,11 +123,7 @@ export default {
       alert: false,
       isMsg: '',
       product_id: '',
-      currentPage: 1,
-      role: 1
-      // totalRows: null,
-      // limit: 12,
-      // page: 1
+      currentPage: 1
     }
   },
   created() {

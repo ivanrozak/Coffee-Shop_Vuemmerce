@@ -6,21 +6,32 @@
       <div class="coupon-back1"></div>
       <div class="coupon-back2"></div>
       <div v-for="(item, index) in coupon" :key="index" class="coupon-list">
+        <div style="text-align: right;">
+          <b-button
+            v-if="user.user_role === 1"
+            class="btn-update"
+            @click="updatePromo(item.coupon_id)"
+          >
+            <img src="../../assets/img/edit.png" />
+          </b-button>
+          <div v-else class="mb-5"></div>
+        </div>
         <img
-          style="margin-top: 30px; width: 100px; border-radius: 200px;"
+          style="width: 100px; border-radius: 200px;"
           src="../../assets/img/float.png"
           alt=""
         />
-        <div class="coupon-title">{{ item.product_list }}</div>
+        <div class="coupon-title">Discount</div>
         <div class="coupon-title">{{ item.coupon_discount }} % OFF</div>
         <div class="coupon-desc">
-          Buy 1 {{ item.product_list }} and get {{ item.coupon_discount }}% off
-          for Black Coffee
+          With minimum purchase {{ item.coupon_min_purchase }}
         </div>
         <hr />
         <div class="coupon-code">COUPON CODE</div>
         <div class="coupon-code2">{{ item.coupon_code }}</div>
-        <div class="coupon-desc">Valid until October 10th 2020</div>
+        <div class="coupon-desc">
+          Valid until {{ formatTime(item.coupon_end) }}
+        </div>
       </div>
     </div>
     <div class="promo_pagination">
@@ -46,52 +57,58 @@
       </ul>
     </div>
     <div class="new-promo">
-      <button v-if="user.user_role === 1">Add New Promo</button>
+      <button @click="addCoupon()" v-if="user.user_role === 1">
+        Add New Promo
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import { mapGetters } from 'vuex'
+import moment from 'moment'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'Coupon',
   computed: {
     rows() {
       return this.totalRows
     },
-    ...mapGetters({ user: 'setUser' })
+    ...mapGetters({
+      user: 'setUser',
+      coupon: 'getDataCoupon',
+      page: 'getPageCoupon',
+      limit: 'getLimitCoupon',
+      rows: 'getTotalRowsCoupon'
+    })
   },
   data() {
     return {
-      cardCoupon: '',
-      coupon: [],
-      currentPage: 1,
-      totalRows: null,
-      limit: 1,
-      page: 1
+      currentPage: 1
     }
   },
   created() {
     this.getPromo()
   },
   methods: {
+    ...mapActions(['getCoupons']),
+    ...mapMutations(['changePages']),
     getPromo() {
-      axios
-        .get(
-          `http://localhost:3000/coupon/?page=${this.page}&limit=${this.limit}`
-        )
-        .then(res => {
-          this.coupon = res.data.data
-          this.totalRows = res.data.pagination.totalData
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      this.getCoupons()
     },
     handlePageChange(numberPage) {
-      this.page = numberPage
+      this.changePages(numberPage)
       this.getPromo()
+    },
+    addCoupon() {
+      this.$router.push('/newPromo')
+    },
+    updatePromo(coupon_id) {
+      console.log(coupon_id)
+      this.$router.push({ name: 'EditPromo', params: { id: coupon_id } })
+    },
+    formatTime(value) {
+      moment.locale('en')
+      return moment(String(value)).format('ll')
     }
   }
 }
@@ -181,13 +198,22 @@ export default {
 .promo_pagination {
   position: relative;
   top: 400px;
-  margin-left: 25px;
+  /* margin-left: 25px; */
 }
 .box2a3 {
   position: relative;
   top: 500px;
-  left: 20px;
+  left: 10px;
   font-size: 14px;
   line-height: 25px;
+}
+.btn-update {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background-color: #6a4029;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 </style>

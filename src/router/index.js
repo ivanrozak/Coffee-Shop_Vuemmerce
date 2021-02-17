@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Product from '../views/Product.vue'
-import Lifecycle from '../views/Lifecycle.vue'
 import YourCart from '../views/YourCart.vue'
 import History from '../views/History.vue'
 import ProductDetail from '../views/ProductDetail.vue'
@@ -13,7 +12,7 @@ import Profile from '../views/Profile'
 import AddProduct from '../views/AddProduct.vue'
 import NewPromo from '../views/NewPromo.vue'
 import EditProduct from '../views/EditProduct.vue'
-// import EditPromo from '../editPromo'
+import EditPromo from '../views/EditPromo.vue'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -29,11 +28,6 @@ const routes = [
     path: '/product',
     name: 'Product',
     component: Product
-  },
-  {
-    path: '/lifecycle',
-    name: 'Lifecycle',
-    component: Lifecycle
   },
   {
     path: '/yourcart',
@@ -87,12 +81,12 @@ const routes = [
     path: '/editProduct/:id',
     name: 'EditProduct',
     component: EditProduct
+  },
+  {
+    path: '/editPromo/:id',
+    name: 'EditPromo',
+    component: EditPromo
   }
-  // {
-  //   path: '/editPromo',
-  //   name: 'EditPromo',
-  //   component: EditPromo
-  // }
 ]
 
 const router = new VueRouter({
