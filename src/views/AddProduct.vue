@@ -30,10 +30,7 @@
               </div>
               <br />
               <input id="fileUpload" type="file" @change="handleFile" hidden />
-              <button @click="chooseFile" class="black">
-                Take a picture
-              </button>
-              <button class="orange">
+              <button @click="chooseFile" class="orange">
                 Choose from gallery
               </button>
               <div class="spacing"></div>
@@ -70,6 +67,7 @@
                 <input
                   type="text"
                   v-model="form.product_name"
+                  class="form-control"
                   placeholder="Type product name max 50 characters"
                 />
                 <div class="spacing"></div>
@@ -92,94 +90,103 @@
                 <h6>Input product size :</h6>
                 <p>Click size you want to use for this product</p>
                 <div class="btn-group">
-                  <button class="round-on"><h4>R</h4></button>
-                  <button class="round-on"><h4>L</h4></button>
-                  <button class="round-on"><h4>XL</h4></button>
-                  <button class="round-off">250 gr</button>
-                  <button class="round-off">300 gr</button>
-                  <button class="round-off">500 gr</button>
-                </div>
-                <div class="btn-group">
-                  <b-form-checkbox
-                    v-model="form.product_sizeR"
-                    value="1"
-                    unchecked-value="null"
+                  <button
+                    @click="btnR()"
+                    :class="
+                      form.product_sizeR === 1 ? 'round-on active' : 'round-off'
+                    "
                   >
                     R
-                  </b-form-checkbox>
-                  <b-form-checkbox
-                    v-model="form.product_sizeL"
-                    value="1"
-                    unchecked-value="null"
+                  </button>
+                  <button
+                    @click="btnL()"
+                    :class="
+                      form.product_sizeL === 1 ? 'round-on active' : 'round-off'
+                    "
                   >
                     L
-                  </b-form-checkbox>
-                  <b-form-checkbox
-                    v-model="form.product_sizeXL"
-                    value="1"
-                    unchecked-value="null"
+                  </button>
+                  <button
+                    @click="btnXL()"
+                    :class="
+                      form.product_sizeXL === 1
+                        ? 'round-on active'
+                        : 'round-off'
+                    "
                   >
                     XL
-                  </b-form-checkbox>
-                  <b-form-checkbox
-                    v-model="form.product_size250"
-                    value="1"
-                    unchecked-value="null"
+                  </button>
+                  <button
+                    @click="btn250()"
+                    :class="
+                      form.product_size250 === 1
+                        ? 'round-on active'
+                        : 'round-off'
+                    "
                   >
                     250 gr
-                  </b-form-checkbox>
-                  <b-form-checkbox
-                    v-model="form.product_size300"
-                    value="1"
-                    unchecked-value="null"
+                  </button>
+                  <button
+                    @click="btn300()"
+                    :class="
+                      form.product_size300 === 1
+                        ? 'round-on active'
+                        : 'round-off'
+                    "
                   >
                     300 gr
-                  </b-form-checkbox>
-                  <b-form-checkbox
-                    v-model="form.product_size500"
-                    value="1"
-                    unchecked-value="null"
+                  </button>
+                  <button
+                    @click="btn500()"
+                    :class="
+                      form.product_size500 === 1
+                        ? 'round-on active'
+                        : 'round-off'
+                    "
                   >
                     500 gr
-                  </b-form-checkbox>
+                  </button>
                 </div>
-                <div>R: {{ form.product_sizeR }}</div>
                 <div class="spacing"></div>
                 <h6>Input delivery methods :</h6>
                 <p>Click methods you want to use for this product</p>
                 <div class="btn-group">
-                  <button class="btn-on"><h6>Home delivery</h6></button>
-                  <button class="btn-on"><h6>Dine in</h6></button>
-                  <button class="btn-off"><h6>Take Away</h6></button>
-                </div>
-                <div class="btn-group">
-                  <b-form-checkbox
-                    v-model="form.product_deliv_home"
-                    value="1"
-                    unchecked-value="null"
+                  <button
+                    @click="btnHome()"
+                    :class="
+                      form.product_deliv_home === 1
+                        ? 'btn-on active'
+                        : 'btn-off'
+                    "
                   >
-                    Home delivery
-                  </b-form-checkbox>
-                  <b-form-checkbox
-                    v-model="form.product_deliv_dine"
-                    value="1"
-                    unchecked-value="null"
+                    Home Delivery
+                  </button>
+                  <button
+                    @click="btnDine()"
+                    :class="
+                      form.product_deliv_dine === 1
+                        ? 'btn-on active'
+                        : 'btn-off'
+                    "
                   >
                     Dine In
-                  </b-form-checkbox>
-                  <b-form-checkbox
-                    v-model="form.product_deliv_take"
-                    value="1"
-                    unchecked-value="null"
+                  </button>
+                  <button
+                    @click="btnAway()"
+                    :class="
+                      form.product_deliv_take === 1
+                        ? 'btn-on active'
+                        : 'btn-off'
+                    "
                   >
-                    Take Away
-                  </b-form-checkbox>
+                    <h6>Take Away</h6>
+                  </button>
                 </div>
                 <div class="spacing"></div>
                 <button type="button" class="brown" @click="addProduct()">
                   Save Product
                 </button>
-                <button class="white">Cancel</button>
+                <button @click="toHome()" class="white">Cancel</button>
               </div>
             </div>
           </div>
@@ -191,42 +198,37 @@
 </template>
 
 <script>
-// [1] step pertama import komponen
-
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import { mapActions } from 'vuex'
-// import FormInput from '../components/_base/FormInput'
 
 export default {
   name: 'Home',
-  // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
     Mainheader,
     Footer
-    // FormInput
   },
   data() {
     return {
       form: {
-        category_id: 'null',
+        category_id: null,
         product_name: '',
         product_desc: '',
-        product_qty: 'null',
+        product_qty: null,
         product_price: '',
         product_image: '',
         product_status: '1',
-        time_start: 'null',
-        time_end: 'null',
-        product_sizeR: '',
-        product_sizeL: '',
-        product_sizeXL: '',
-        product_size250: '',
-        product_size300: '',
-        product_size500: '',
-        product_deliv_home: '',
-        product_deliv_dine: '',
-        product_deliv_take: ''
+        time_start: null,
+        time_end: null,
+        product_sizeR: null,
+        product_sizeL: null,
+        product_sizeXL: null,
+        product_size250: null,
+        product_size300: null,
+        product_size500: null,
+        product_deliv_home: null,
+        product_deliv_dine: null,
+        product_deliv_take: null
       },
       alert: false,
       timeStart: [
@@ -300,27 +302,90 @@ export default {
       data.append('product_deliv_home', product_deliv_home)
       data.append('product_deliv_dine', product_deliv_dine)
       data.append('product_deliv_take', product_deliv_take)
-      //ini untuk pengecekan dengan log
-      for (var pair of data.entries()) {
-        console.log(pair[0] + ', ' + pair[1])
-      }
-      // this.postProduct(data)
-      //   .then(result => {
-      //     alert(result.data.msg)
-      //   })
-      //   .catch(err => {
-      //     alert(err.data.msg)
-      //   })
+
+      this.postProduct(data)
+        .then(result => {
+          alert(result.data.msg)
+          this.$router.push('/product')
+        })
+        .catch(err => {
+          alert(err.data.msg)
+        })
     },
     handleFile(event) {
       console.log(event)
       const file = event.target.files[0]
       this.url = URL.createObjectURL(file)
       this.form.product_image = event.target.files[0]
-      // this.getProducts()
     },
     chooseFile() {
       document.getElementById('fileUpload').click()
+    },
+    toHome() {
+      this.$router.push('/product')
+    },
+    btnHome() {
+      if (this.form.product_deliv_home === null) {
+        this.form.product_deliv_home = 1
+      } else {
+        this.form.product_deliv_home = null
+      }
+    },
+    btnDine() {
+      if (this.form.product_deliv_dine === null) {
+        this.form.product_deliv_dine = 1
+      } else {
+        this.form.product_deliv_dine = null
+      }
+    },
+    btnAway() {
+      if (this.form.product_deliv_take === null) {
+        this.form.product_deliv_take = 1
+      } else {
+        this.form.product_deliv_take = null
+      }
+    },
+    btnR() {
+      if (this.form.product_sizeR === null) {
+        this.form.product_sizeR = 1
+      } else {
+        this.form.product_sizeR = null
+      }
+    },
+    btnL() {
+      if (this.form.product_sizeL === null) {
+        this.form.product_sizeL = 1
+      } else {
+        this.form.product_sizeL = null
+      }
+    },
+    btnXL() {
+      if (this.form.product_sizeXL === null) {
+        this.form.product_sizeXL = 1
+      } else {
+        this.form.product_sizeXL = null
+      }
+    },
+    btn250() {
+      if (this.form.product_size250 === null) {
+        this.form.product_size250 = 1
+      } else {
+        this.form.product_size250 = null
+      }
+    },
+    btn300() {
+      if (this.form.product_size300 === null) {
+        this.form.product_size300 = 1
+      } else {
+        this.form.product_size300 = null
+      }
+    },
+    btn500() {
+      if (this.form.product_size500 === null) {
+        this.form.product_size500 = 1
+      } else {
+        this.form.product_size500 = null
+      }
     }
   }
 }

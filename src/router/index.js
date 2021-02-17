@@ -101,10 +101,8 @@ const router = new VueRouter({
   routes
 })
 
-//middleware login
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    // mengambil data dari getters auth
     if (!store.getters.isLogin) {
       next({
         path: '/login'

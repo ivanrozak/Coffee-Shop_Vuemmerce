@@ -72,12 +72,10 @@ export default {
       })
     },
     postProduct(context, payload) {
-      console.log(context)
       return new Promise((resolve, reject) => {
         axios
           .post(`${process.env.VUE_APP_URL}product/`, payload)
           .then(response => {
-            console.log(response)
             resolve(response)
           })
           .catch(error => {
@@ -91,7 +89,6 @@ export default {
         axios
           .get(`${process.env.VUE_APP_URL}product/${payload}`)
           .then(response => {
-            console.log(response)
             context.commit('setProductById', response.data.data[0])
             resolve(response)
           })
