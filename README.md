@@ -1,6 +1,16 @@
-# About The Project
+# Coffee Shop Project
 
 ![alt text](https://github.com/ivanrozak/Coffee-Shop_Vuemmerce/blob/main/src/assets/img/product/coffeeshop.jpg)
+
+## About The Project
+An online coffee shop project that is a solution for cafes during a pandemic, we can see ordering products online and do checkout.
+
+### Built With
+
+* [VueJs](https://vuejs.org/)
+* [ExpressJs](https://expressjs.com/)
+* [Bootstrap-Vue](https://bootstrap-vue.org/)
+* [NodeJs](https://nodejs.org/)
 
 ## Project setup
 ```
