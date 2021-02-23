@@ -35,6 +35,8 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-# week5-web6-beginerFrontend
+## Contact
+
+Ivan Rozak - [@ivanrozak](https://instagram.com/ivanrozak) - ivanrozack@gmail.com
+
+Project Link: [Coffee Shop Online](https://lacoffee.netlify.app)
