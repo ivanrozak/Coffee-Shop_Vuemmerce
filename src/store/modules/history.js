@@ -7,7 +7,10 @@ export default {
     histories: [],
     invoice: '',
     page: 1,
-    limit: 30
+    limit: 30,
+    daily: '',
+    weekly: '',
+    yearly: ''
   },
   mutations: {
     setCart(state, payload) {
@@ -27,6 +30,15 @@ export default {
     },
     deleteInvoice(state) {
       state.invoice = ''
+    },
+    setDaily(state, payload) {
+      state.daily = payload
+    },
+    setWeekly(state, payload) {
+      state.weekly = payload
+    },
+    setYearly(state, payload) {
+      state.yearly = payload
     }
   },
   actions: {
@@ -117,6 +129,45 @@ export default {
             reject(error)
           })
       })
+    },
+    getDailyReport(context) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${process.env.VUE_APP_URL}history/total/day`)
+          .then(response => {
+            context.commit('setDaily', response.data.data[0].total_daily)
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
+    getWeeklyReport(context) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${process.env.VUE_APP_URL}history/total/week`)
+          .then(response => {
+            context.commit('setWeekly', response.data.data[0].total_by_week)
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
+    getYearlyReport(context) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${process.env.VUE_APP_URL}history/total/year`)
+          .then(response => {
+            context.commit('setYearly', response.data.data[0].total_by_year)
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
     }
   },
   getters: {
@@ -131,6 +182,15 @@ export default {
     },
     getInvoice(state) {
       return state.invoice
+    },
+    getDaily(state) {
+      return state.daily
+    },
+    getWeekly(state) {
+      return state.weekly
+    },
+    getYearly(state) {
+      return state.yearly
     }
   }
 }

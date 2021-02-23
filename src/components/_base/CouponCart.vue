@@ -9,7 +9,7 @@
         </div>
         <img
           style="width: 100px; border-radius: 200px;"
-          src="../../assets/img/float.png"
+          :src="config + 'coupons/' + item.coupon_image"
           alt=""
         />
         <div class="coupon-title">Discount</div>
@@ -61,7 +61,8 @@ export default {
   },
   data() {
     return {
-      currentPage: 1
+      currentPage: 1,
+      config: process.env.VUE_APP_URL
     }
   },
   created() {

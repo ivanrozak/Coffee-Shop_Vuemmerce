@@ -19,17 +19,17 @@
               <div class="image">
                 <img
                   v-if="url"
-                  style="border-radius: 50%; width: 200px;"
+                  style="border-radius: 50%; width: 200px; height: 200px;"
                   :src="url"
                 />
                 <img
                   v-else-if="form.coupon_image"
-                  style="border-radius: 50%; width: 200px;"
+                  style="border-radius: 50%; width: 200px; height: 200px;"
                   :src="config + 'coupons/' + form.coupon_image"
                 />
                 <img
                   v-else
-                  style="border-radius: 50%; width: 200px;"
+                  style="border-radius: 50%; width: 200px; height: 200px;"
                   src="../assets/img/noimage.jpg"
                 />
               </div>

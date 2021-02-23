@@ -14,6 +14,7 @@ import NewPromo from '../views/NewPromo.vue'
 import EditProduct from '../views/EditProduct.vue'
 import EditPromo from '../views/EditPromo.vue'
 import ManageOrder from '../views/HistoryAdmin.vue'
+import Dashboard from '../views/Dashboard.vue'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -23,7 +24,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
-    // meta: { requiresAuth: true }
   },
   {
     path: '/product',
@@ -44,7 +44,6 @@ const routes = [
     path: '/productDetail/:id',
     name: 'ProductDetail',
     component: ProductDetail,
-    // verifikasidengan meta
     meta: { requiresAuth: true }
   },
   {
@@ -92,6 +91,11 @@ const routes = [
     path: '/manageorder',
     name: 'ManageOrder',
     component: ManageOrder
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard
   }
 ]
 

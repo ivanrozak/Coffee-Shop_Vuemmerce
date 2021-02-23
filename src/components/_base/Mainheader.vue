@@ -87,7 +87,8 @@ export default {
   name: 'Navbar',
   data() {
     return {
-      searchProduct: ''
+      searchProduct: '',
+      config: process.env.VUE_APP_URL
     }
   },
   computed: {

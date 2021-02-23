@@ -29,7 +29,7 @@
                 >
                   <div class="flexs">
                     <img
-                      style="border-radius: 10px; width: 60px;"
+                      style="border-radius: 10px; width: 60px; height: 60px;"
                       :src="config + 'products/' + item.product_image"
                     />
                     <div class="ml-4">

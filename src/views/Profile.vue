@@ -10,6 +10,12 @@
           <div class="sub-box-user-profile">
             <div class="sub-box-user-profile-kiri">
               <img
+                v-if="user.user_image"
+                style="border-radius: 50%;"
+                :src="config + 'users/' + user.user_image"
+              />
+              <img
+                v-else
                 style="border-radius: 50%;"
                 src="../assets/img/image 39.png"
               />
@@ -159,7 +165,8 @@ export default {
       options: [
         { text: 'Male', value: 'male' },
         { text: 'Female', value: 'female' }
-      ]
+      ],
+      config: process.env.VUE_APP_URL
     }
   },
   methods: {
