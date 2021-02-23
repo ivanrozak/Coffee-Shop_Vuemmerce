@@ -37,7 +37,6 @@
 </template>
 
 <script>
-// [1] step pertama import komponen
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import { mapActions, mapGetters } from 'vuex'
@@ -46,7 +45,6 @@ import Alert from '../mixins/Alert'
 export default {
   mixins: [Alert],
   name: 'History',
-  // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
     Mainheader,
     Footer
@@ -59,7 +57,6 @@ export default {
   },
   created() {
     this.getHistory()
-    console.log(this.data)
   },
   methods: {
     ...mapActions(['getHistoryUser', 'deleteDetailHistory', 'deleteHistory']),

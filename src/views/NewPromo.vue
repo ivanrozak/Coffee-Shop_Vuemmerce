@@ -105,8 +105,6 @@
 </template>
 
 <script>
-// [1] step pertama import komponen
-
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import { mapActions } from 'vuex'
@@ -164,7 +162,6 @@ export default {
         })
     },
     handleFile(event) {
-      console.log(event)
       const file = event.target.files[0]
       this.url = URL.createObjectURL(file)
       this.form.coupon_image = event.target.files[0]

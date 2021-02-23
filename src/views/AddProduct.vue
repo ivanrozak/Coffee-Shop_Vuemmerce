@@ -315,7 +315,6 @@ export default {
         })
     },
     handleFile(event) {
-      console.log(event)
       const file = event.target.files[0]
       this.url = URL.createObjectURL(file)
       this.form.product_image = event.target.files[0]

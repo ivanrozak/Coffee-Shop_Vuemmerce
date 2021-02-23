@@ -137,22 +137,17 @@
 </template>
 
 <script>
-// [1] step pertama import komponen
-
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import { mapGetters, mapActions } from 'vuex'
 import Alert from '../mixins/Alert'
-// import FormInput from '../components/_base/FormInput'
 
 export default {
   mixins: [Alert],
   name: 'Home',
-  // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
     Mainheader,
     Footer
-    // FormInput
   },
   mounted() {
     this.getUserByEmail()
@@ -203,11 +198,7 @@ export default {
           this.AlertError(err.data.msg)
         })
     },
-    logout() {
-      console.log(this.data.user_email)
-    },
     handleFile(event) {
-      console.log(event)
       this.user.user_image = event.target.files[0]
     },
     chooseFile() {

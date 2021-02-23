@@ -312,7 +312,6 @@ export default {
         })
     },
     handleFile(event) {
-      console.log(event)
       const product_image = event.target.files[0]
       const data = new FormData()
       data.append('product_image', product_image)
@@ -324,7 +323,6 @@ export default {
         })
         .catch(error => {
           this.AlertError(error.data.msg)
-          console.log(error)
         })
     },
     chooseFile() {

@@ -79,17 +79,15 @@
 </template>
 
 <script>
-// [1] step pertama import komponen
 import Navbar from '../components/_base/Navbar'
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import Coupon from '../components/_base/Coupon'
-// import axios from 'axios'
+
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'Product',
-  // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
     Navbar,
     Mainheader,
@@ -104,13 +102,9 @@ export default {
       rows: 'getTotalRowsProduct',
       user: 'setUser'
     })
-    // rows() {
-    //   return this.totalRows
-    // }
   },
   data() {
     return {
-      // products: [],
       form: {
         product_name: '',
         category_id: '',
@@ -132,7 +126,6 @@ export default {
     ...mapActions(['getProducts', 'deleteProducts']),
     ...mapMutations(['changePage']),
     deleteProduct(product_id) {
-      console.log(product_id)
       this.deleteProducts(product_id)
         .then(result => {
           alert(result.data.msg)
@@ -143,8 +136,7 @@ export default {
         })
     },
     setProduct(data) {
-      console.log(data)
-      this.form = data //cara simplenya
+      this.form = data
       this.product_id = data.product_id
     },
     handlePageChange(numberPage) {
@@ -152,18 +144,15 @@ export default {
       this.getProducts()
     },
     detailProduct(product_id) {
-      console.log(product_id)
       this.$router.push({ name: 'ProductDetail', params: { id: product_id } })
     },
     updateProduct(product_id) {
-      console.log(product_id)
       this.$router.push({ name: 'EditProduct', params: { id: product_id } })
     },
     toPageAddProduct() {
       this.$router.push('addProduct')
     },
     handleFile(event) {
-      console.log(event)
       this.form.product_image = event.target.files[0]
     }
   }

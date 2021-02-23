@@ -196,8 +196,6 @@
 </template>
 
 <script>
-// [1] step pertama import komponen
-
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import { mapGetters } from 'vuex'
@@ -206,7 +204,6 @@ import VueGlideSlide from '../components/_base/Home/GlideSlide'
 
 export default {
   name: 'Home',
-  // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
     Mainheader,
     Footer,
@@ -247,14 +244,9 @@ export default {
   },
   methods: {
     boom() {
-      console.log('Boom !')
       alert('Boom !')
     },
-    search() {
-      console.log('Process Search !')
-      console.log(this.searchData)
-    },
-    //ini cara ke 2
+    search() {},
     changeNameProduct(event) {
       this.product_name = event
     }

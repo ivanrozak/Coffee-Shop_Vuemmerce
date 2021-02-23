@@ -13,7 +13,6 @@ export default {
   },
   mutations: {
     setProduct(state, payload) {
-      //   payload = response.data
       state.products = payload.data
       state.totalRows = payload.pagination.totalData
     },
@@ -45,7 +44,6 @@ export default {
             resolve(response)
           })
           .catch(error => {
-            console.log(error.response)
             reject(error)
           })
       })
@@ -57,16 +55,10 @@ export default {
             `${process.env.VUE_APP_URL}product?page=${context.state.page}&limit=${context.state.limit}&sortBy=${context.state.sortBy}&category_id=${payload}`
           )
           .then(response => {
-            console.log(response)
-            // context.commit('getCat', payload)
             context.commit('setProduct', response.data)
             resolve(response)
-            //   console.log(response)
-            //   state.totalRows = response.data.pagination.totalData
-            //   state.products = response.data.data
           })
           .catch(error => {
-            console.log(error.response)
             reject(error)
           })
       })
@@ -79,7 +71,6 @@ export default {
             resolve(response)
           })
           .catch(error => {
-            console.log(error)
             reject(error)
           })
       })
@@ -89,12 +80,10 @@ export default {
         axios
           .get(`${process.env.VUE_APP_URL}product/${payload}`)
           .then(response => {
-            console.log(response)
             context.commit('setProductById', response.data.data[0])
             resolve(response.data.data[0])
           })
           .catch(error => {
-            console.log(error)
             reject(error)
           })
       })
@@ -107,11 +96,9 @@ export default {
             payload.dataSet
           )
           .then(response => {
-            console.log(response)
             resolve(response)
           })
           .catch(error => {
-            console.log(error)
             reject(error.response)
           })
       })

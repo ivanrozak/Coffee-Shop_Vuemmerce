@@ -250,14 +250,12 @@ export default {
     this.postInvoice()
   },
   mounted() {
-    // this.getProductById()
     this.getProductsById(this.$route.params.id).then(result => {
       this.form.product_id = this.$route.params.id
       this.form.product_name = result.product_name
       this.form.product_image = result.product_image
       this.form.detail_total = result.product_price
       this.form.invoice = this.invoice
-      console.log(result)
     })
   },
   methods: {

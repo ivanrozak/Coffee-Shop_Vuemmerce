@@ -201,7 +201,6 @@ export default {
         })
         .catch(error => {
           this.AlertError(error.data.msg)
-          console.log(error)
         })
     },
     chooseFile() {

@@ -67,7 +67,6 @@ export default {
   methods: {
     ...mapActions(['login']),
     onSubmit() {
-      console.log(this.form)
       this.login(this.form)
         .then(result => {
           this.AlertSucces(result.data.msg)

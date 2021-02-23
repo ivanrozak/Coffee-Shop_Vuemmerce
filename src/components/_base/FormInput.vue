@@ -11,7 +11,6 @@ export default {
   props: ['dataProductName'],
   methods: {
     changeProductName(event) {
-      //   console.log(event.target.value)
       const changeProductName = event.target.value
       this.$emit('changeProductName', changeProductName)
     }

@@ -98,7 +98,6 @@ export default {
     ...mapActions(['logout', 'getProducts']),
     ...mapMutations(['changePage', 'search']),
     handleLogout() {
-      console.log('anda berhasil logout')
       this.logout()
     },
     searchs() {

@@ -221,8 +221,6 @@ export default {
         this.form.discount = 0
       }
       this.countGrand()
-      console.log(event)
-      console.log('discount')
     },
     countGrand() {
       this.form.grand_total =

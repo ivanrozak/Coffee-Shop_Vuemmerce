@@ -29,7 +29,6 @@ export default {
             resolve(result)
           })
           .catch(error => {
-            console.log(error.response)
             reject(error.response)
           })
       })
@@ -40,7 +39,6 @@ export default {
           .get(`${process.env.VUE_APP_URL}user/${payload}`)
           .then(result => {
             context.commit('setUserByEmail', result.data.data[0])
-            console.log(result)
             resolve(result)
           })
           .catch(error => {
@@ -56,7 +54,6 @@ export default {
             payload
           )
           .then(result => {
-            console.log(result)
             resolve(result)
           })
           .catch(error => {

@@ -107,7 +107,6 @@ export default {
       this.$router.push('/newPromo')
     },
     updatePromo(coupon_id) {
-      console.log(coupon_id)
       this.$router.push({ name: 'EditPromo', params: { id: coupon_id } })
     },
     formatTime(value) {
