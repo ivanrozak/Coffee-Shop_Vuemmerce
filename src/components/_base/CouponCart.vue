@@ -77,10 +77,12 @@ export default {
       this.getCoupons()
     },
     addPromo() {
-      this.setPromo(this.coupon[0])
+      // this.setPromo(this.coupon[0])
+      this.$emit('setDiscount', this.coupon[0])
     },
     removePromo() {
-      this.clearPromo()
+      // this.clearPromo()
+      this.$emit('setDiscount', {})
     },
     handlePageChange(numberPage) {
       this.changePages(numberPage)

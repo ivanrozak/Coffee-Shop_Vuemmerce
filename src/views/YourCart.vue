@@ -75,7 +75,7 @@
             >
             <b-sidebar id="sidebar-1" title="Apply Coupon" shadow>
               <div class="px-3 py-2">
-                <Coupon />
+                <Coupon @setDiscount="countDiscount" />
               </div>
             </b-sidebar>
           </b-col>
@@ -177,7 +177,6 @@ export default {
     this.form.user_id = this.user.user_id
   },
   mounted() {
-    this.countDiscount()
     this.countGrand()
   },
   methods: {
@@ -185,6 +184,9 @@ export default {
     ...mapActions(['getUserByEmails', 'postDetailHistory', 'postHistories']),
     delCart() {
       this.deleteCart()
+      this.form.sub_total = 0
+      this.form.discount = 0
+      this.countGrand()
     },
     postData() {
       this.postDetailHistory(this.cart)
@@ -206,11 +208,11 @@ export default {
         0
       )
     },
-    countDiscount() {
-      if (this.form.sub_total >= this.promo.coupon_min_purchase) {
-        let dsc = (this.form.sub_total * this.promo.coupon_discount) / 100
-        if (dsc >= this.promo.coupon_max_limit) {
-          dsc = this.promo.coupon_max_limit
+    countDiscount(event) {
+      if (this.form.sub_total >= event.coupon_min_purchase) {
+        let dsc = (this.form.sub_total * event.coupon_discount) / 100
+        if (dsc >= event.coupon_max_limit) {
+          dsc = event.coupon_max_limit
           this.form.discount = dsc
         } else {
           this.form.discount = dsc
@@ -218,6 +220,9 @@ export default {
       } else {
         this.form.discount = 0
       }
+      this.countGrand()
+      console.log(event)
+      console.log('discount')
     },
     countGrand() {
       this.form.grand_total =

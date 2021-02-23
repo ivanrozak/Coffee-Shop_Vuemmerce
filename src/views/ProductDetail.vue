@@ -18,7 +18,7 @@
             <div class="img-top">
               <img
                 v-if="produk.product_image"
-                style="border-radius: 50%; width: 200px;"
+                style="border-radius: 50%; width: 200px; height: 200px;"
                 :src="config + 'products/' + produk.product_image"
               />
               <img v-else src="../assets/img/noimage.jpg" alt="" />
@@ -250,12 +250,15 @@ export default {
     this.postInvoice()
   },
   mounted() {
-    this.getProductById()
-    this.form.product_id = this.$route.params.id
-    this.form.product_name = this.produk.product_name
-    this.form.product_image = this.produk.product_image
-    this.form.detail_total = this.produk.product_price
-    this.form.invoice = this.invoice
+    // this.getProductById()
+    this.getProductsById(this.$route.params.id).then(result => {
+      this.form.product_id = this.$route.params.id
+      this.form.product_name = result.product_name
+      this.form.product_image = result.product_image
+      this.form.detail_total = result.product_price
+      this.form.invoice = this.invoice
+      console.log(result)
+    })
   },
   methods: {
     ...mapMutations(['setCart', 'deleteCart', 'setInvoice']),
@@ -264,13 +267,6 @@ export default {
     postCart() {
       this.carts = [...this.cart, this.form]
       this.setCart(this.carts)
-        .then(result => {
-          this.AlertSucces('Success add to cart')
-          return result
-        })
-        .catch(err => {
-          this.AlertError(err.data.msg)
-        })
     },
     delCart() {
       this.deleteCart()
@@ -490,6 +486,7 @@ button {
 .c-image img {
   border-radius: 50%;
   width: 90px;
+  height: 90px;
 }
 .desc {
   margin-left: 20px;

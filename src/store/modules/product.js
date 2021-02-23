@@ -89,8 +89,9 @@ export default {
         axios
           .get(`${process.env.VUE_APP_URL}product/${payload}`)
           .then(response => {
+            console.log(response)
             context.commit('setProductById', response.data.data[0])
-            resolve(response)
+            resolve(response.data.data[0])
           })
           .catch(error => {
             console.log(error)
@@ -111,7 +112,7 @@ export default {
           })
           .catch(error => {
             console.log(error)
-            reject(error)
+            reject(error.response)
           })
       })
     },

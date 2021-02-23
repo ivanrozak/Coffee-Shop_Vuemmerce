@@ -313,9 +313,19 @@ export default {
     },
     handleFile(event) {
       console.log(event)
-      const file = event.target.files[0]
-      this.url = URL.createObjectURL(file)
-      this.form.product_image = event.target.files[0]
+      const product_image = event.target.files[0]
+      const data = new FormData()
+      data.append('product_image', product_image)
+      const newData = { dataSet: data, id: this.product_id }
+      this.updateProducts(newData)
+        .then(result => {
+          this.url = URL.createObjectURL(product_image)
+          this.AlertSucces(result.data.msg)
+        })
+        .catch(error => {
+          this.AlertError(error.data.msg)
+          console.log(error)
+        })
     },
     chooseFile() {
       document.getElementById('fileUpload').click()

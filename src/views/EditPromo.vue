@@ -190,10 +190,19 @@ export default {
         })
     },
     handleFile(event) {
-      console.log(event)
-      const file = event.target.files[0]
-      this.url = URL.createObjectURL(file)
-      this.form.coupon_image = event.target.files[0]
+      const coupon_image = event.target.files[0]
+      const data = new FormData()
+      data.append('coupon_image', coupon_image)
+      const newData = { dataSet: data, id: this.coupon_id }
+      this.updateCoupons(newData)
+        .then(result => {
+          this.url = URL.createObjectURL(coupon_image)
+          this.AlertSucces(result.data.msg)
+        })
+        .catch(error => {
+          this.AlertError(error.data.msg)
+          console.log(error)
+        })
     },
     chooseFile() {
       document.getElementById('fileUpload').click()
