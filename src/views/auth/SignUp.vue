@@ -86,6 +86,7 @@ export default {
         this.registerUser(this.form)
           .then(result => {
             this.AlertSucces(result.data.msg)
+            this.$router.push('/login')
           })
           .catch(err => {
             this.AlertError(err.data.msg)

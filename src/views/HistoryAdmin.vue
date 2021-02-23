@@ -66,15 +66,15 @@ export default {
     ...mapActions(['getAllHistory', 'patchHistory']),
     getHistory() {
       this.getAllHistory()
+    },
+    confirmOrder(param) {
+      this.patchHistory(param)
         .then(result => {
           this.AlertSucces(result.data.msg)
         })
         .catch(err => {
           this.AlertError(err.data.msg)
         })
-    },
-    confirmOrder(param) {
-      this.patchHistory(param)
       this.getHistory()
     }
   }

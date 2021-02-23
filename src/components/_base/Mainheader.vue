@@ -51,9 +51,11 @@
             </b-form-input>
           </b-input-group>
         </div>
-        <!-- <router-link to="#"><img src="../../assets/img/chat.png"/></router-link> -->
+
         <b-dropdown
+          v-if="user.user_id >= 1"
           size="sm"
+          right
           variant="link"
           toggle-class="text-decoration-none"
           no-caret
@@ -64,12 +66,15 @@
               src="../../assets/img/prof.png"
             /><span class="sr-only">Search</span>
           </template>
-          <b-dropdown-item href="#">Login</b-dropdown-item>
+
           <b-dropdown-item @click="handleProfile"
             >Update Profile</b-dropdown-item
           >
           <b-dropdown-item @click="handleLogout">Logout</b-dropdown-item>
         </b-dropdown>
+        <div v-else>
+          <b-button variant="warning" @click="toLogin">Login</b-button>
+        </div>
       </div>
     </b-container>
     <hr />
@@ -106,6 +111,9 @@ export default {
     },
     toHome() {
       this.$router.push('/')
+    },
+    toLogin() {
+      this.$router.push('/login')
     }
   }
 }
