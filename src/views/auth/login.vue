@@ -75,7 +75,6 @@ export default {
         })
         .catch(err => {
           this.AlertError(err.data.msg)
-          // alert(err.data.msg)
         })
     },
     onReset() {

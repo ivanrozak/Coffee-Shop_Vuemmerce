@@ -42,8 +42,10 @@
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import { mapActions, mapGetters } from 'vuex'
+import Alert from '../mixins/Alert'
 
 export default {
+  mixins: [Alert],
   name: 'History',
   // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
@@ -64,6 +66,12 @@ export default {
     ...mapActions(['getAllHistory', 'patchHistory']),
     getHistory() {
       this.getAllHistory()
+        .then(result => {
+          this.AlertSucces(result.data.msg)
+        })
+        .catch(err => {
+          this.AlertError(err.data.msg)
+        })
     },
     confirmOrder(param) {
       this.patchHistory(param)

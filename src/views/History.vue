@@ -42,8 +42,10 @@
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import { mapActions, mapGetters } from 'vuex'
+import Alert from '../mixins/Alert'
 
 export default {
+  mixins: [Alert],
   name: 'History',
   // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
@@ -68,6 +70,13 @@ export default {
     deleteHistorys(invoice) {
       this.deleteHistory(invoice)
       this.deleteDetailHistory(invoice)
+        .then(result => {
+          this.AlertSucces('Success Delete Item')
+          return result
+        })
+        .catch(err => {
+          this.AlertError(err.data.msg)
+        })
       this.getHistory()
     }
   }

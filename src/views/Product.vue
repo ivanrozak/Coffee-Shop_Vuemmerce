@@ -205,6 +205,7 @@ export default {
 }
 .product {
   display: flex;
+  height: 1150px;
 }
 .product-box {
   position: relative;
@@ -284,8 +285,4 @@ export default {
 .btn-delete img {
   width: 80%;
 }
-
-/* .product-list {
-  border-left: 0.5px solid #9f9f9f;
-} */
 </style>

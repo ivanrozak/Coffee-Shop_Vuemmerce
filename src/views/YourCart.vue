@@ -139,8 +139,10 @@ import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import Coupon from '../components/_base/CouponCart'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+import Alert from '../mixins/Alert'
 
 export default {
+  mixins: [Alert],
   name: 'History',
   components: {
     Mainheader,
@@ -189,7 +191,7 @@ export default {
     postData() {
       this.postDetailHistory(this.cart)
       this.postHistories(this.form)
-      alert('Mantap')
+      this.AlertSucces('Success checkout, please pay your order !')
       this.deleteCart()
       this.deleteInvoice()
       this.form.sub_total = 0

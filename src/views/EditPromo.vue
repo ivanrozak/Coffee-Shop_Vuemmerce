@@ -113,14 +113,13 @@
 </template>
 
 <script>
-// [1] step pertama import komponen
-
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import { mapActions, mapGetters } from 'vuex'
-// import FormInput from '../components/_base/FormInput'
+import Alert from '../mixins/Alert'
 
 export default {
+  mixins: [Alert],
   name: 'Home',
   components: {
     Mainheader,
@@ -171,22 +170,22 @@ export default {
       let dataUpdate = { dataSet: data, id: this.coupon_id }
       this.updateCoupons(dataUpdate)
         .then(result => {
-          alert(result.data.msg)
+          this.AlertSucces(result.data.msg)
           this.$router.push('/product')
         })
         .catch(err => {
-          alert(err.data.msg)
+          this.AlertError(err.data.msg)
         })
     },
     deletePromo() {
       this.deleteCoupons(this.coupon_id)
         .then(result => {
-          alert(result.data.msg)
+          this.AlertSucces(result.data.msg)
           this.$router.push('/product')
           this.getCoupons()
         })
         .catch(err => {
-          alert(err.data.msg)
+          this.AlertError(err.data.msg)
         })
     },
     handleFile(event) {

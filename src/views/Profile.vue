@@ -136,9 +136,11 @@
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import { mapGetters, mapActions } from 'vuex'
+import Alert from '../mixins/Alert'
 // import FormInput from '../components/_base/FormInput'
 
 export default {
+  mixins: [Alert],
   name: 'Home',
   // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
@@ -186,15 +188,12 @@ export default {
       data.append('user_image', user_image)
       data.append('user_birth', user_birth)
       data.append('user_address', user_address)
-      for (var pair of data.entries()) {
-        console.log(pair[0] + ', ' + pair[1])
-      }
       this.updateProfileUsers(data)
         .then(result => {
-          alert(result.data.msg)
+          this.AlertSucces(result.data.msg)
         })
         .catch(err => {
-          alert(err.data.msg)
+          this.AlertError(err.data.msg)
         })
     },
     logout() {

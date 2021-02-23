@@ -110,9 +110,10 @@
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import { mapActions } from 'vuex'
-// import FormInput from '../components/_base/FormInput'
+import Alert from '../mixins/Alert'
 
 export default {
+  mixins: [Alert],
   name: 'Home',
   components: {
     Mainheader,
@@ -155,11 +156,11 @@ export default {
 
       this.postCoupons(data)
         .then(result => {
-          alert(result.data.msg)
+          this.AlertSucces(result.data.msg)
           this.$router.push('/product')
         })
         .catch(err => {
-          alert(err.data.msg)
+          this.AlertError(err.data.msg)
         })
     },
     handleFile(event) {

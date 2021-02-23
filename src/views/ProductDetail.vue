@@ -214,8 +214,10 @@
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+import Alert from '../mixins/Alert'
 
 export default {
+  mixins: [Alert],
   components: {
     Mainheader,
     Footer
@@ -263,15 +265,19 @@ export default {
     postCart() {
       this.carts = [...this.cart, this.form]
       this.setCart(this.carts)
+        .then(result => {
+          this.AlertSucces('Success add to cart')
+          return result
+        })
+        .catch(err => {
+          this.AlertError(err.data.msg)
+        })
     },
     delCart() {
       this.deleteCart()
     },
     getProductById() {
       this.getProductsById(this.$route.params.id)
-    },
-    checkout() {
-      console.log(this.$route.params.id)
     },
     btnDeliv(deliv) {
       this.form.detail_delivery = deliv

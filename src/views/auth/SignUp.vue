@@ -51,11 +51,11 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { toastMixins } from '../../mixins/toastMixins'
+import Alert from '../../mixins/Alert'
 import Footer from '../../components/_base/Footer.vue'
 
 export default {
-  mixins: [toastMixins],
+  mixins: [Alert],
   name: 'SignUp',
   components: {
     Footer
@@ -85,10 +85,10 @@ export default {
       } else {
         this.registerUser(this.form)
           .then(result => {
-            this.successToast(result.data.msg)
+            this.AlertSucces(result.data.msg)
           })
           .catch(err => {
-            alert(err.data.msg)
+            this.AlertError(err.data.msg)
           })
       }
     }
