@@ -1,6 +1,6 @@
 # About The Project
 
-[![Cofeela][Coffeshop]](https://github.com/ivanrozak/Coffee-Shop_Vuemmerce/blob/main/src/assets/img/product/coffeeshop.jpg)
+![alt text](https://github.com/ivanrozak/Coffee-Shop_Vuemmerce/blob/main/src/assets/img/product/coffeeshop.jpg)
 
 ## Project setup
 ```
