@@ -32,22 +32,15 @@
                   style="border-radius: 50%; width: 200px;"
                   src="../assets/img/noimage.jpg"
                 />
-                <!-- <img
-                  v-if="!url"
-                  style="border-radius: 50%; width: 200px;"
-                  src="../assets/img/noimage.jpg"
-                />
-                <img
-                  v-if="url"
-                  style="border-radius: 50%; width: 200px;"
-                  :src="url"
-                /> -->
               </div>
               <br />
 
               <input id="fileUpload" type="file" @change="handleFile" hidden />
               <button @click="chooseFile" class="orange">
                 Choose from gallery
+              </button>
+              <button @click="deletePromo()" class="black">
+                Delete Promo
               </button>
               <div class="spacing"></div>
               <h6 class="centered">Expire date :</h6>
@@ -147,7 +140,12 @@ export default {
     ...mapGetters({ form: 'getDataCouponById' })
   },
   methods: {
-    ...mapActions(['updateCoupons', 'getCouponsById']),
+    ...mapActions([
+      'updateCoupons',
+      'getCouponsById',
+      'getCoupons',
+      'deleteCoupons'
+    ]),
     getCouponById() {
       this.getCouponsById(this.coupon_id)
     },
@@ -175,6 +173,17 @@ export default {
         .then(result => {
           alert(result.data.msg)
           this.$router.push('/product')
+        })
+        .catch(err => {
+          alert(err.data.msg)
+        })
+    },
+    deletePromo() {
+      this.deleteCoupons(this.coupon_id)
+        .then(result => {
+          alert(result.data.msg)
+          this.$router.push('/product')
+          this.getCoupons()
         })
         .catch(err => {
           alert(err.data.msg)

@@ -1,20 +1,11 @@
 <template>
   <div class="coupon centered col-xl-3">
     <div>
-      <div style="font-size: 2em; font-weight: 600;">Promo Today</div>
-      <p>Coupons will be updated every weeks. Check them out!</p>
       <div class="coupon-back1"></div>
       <div class="coupon-back2"></div>
       <div v-for="(item, index) in coupon" :key="index" class="coupon-list">
         <div style="text-align: right;">
-          <b-button
-            v-if="user.user_role === 1"
-            class="btn-update"
-            @click="updatePromo(item.coupon_id)"
-          >
-            <img src="../../assets/img/edit.png" />
-          </b-button>
-          <div v-else class="mb-5"></div>
+          <div class="mb-5"></div>
         </div>
         <img
           style="width: 100px; border-radius: 200px;"
@@ -34,7 +25,7 @@
         </div>
       </div>
     </div>
-    <div class="promo_pagination">
+    <div class="promo_pagination ml-3">
       <b-pagination
         v-model="currentPage"
         :total-rows="rows"
@@ -42,24 +33,11 @@
         @change="handlePageChange"
       ></b-pagination>
     </div>
-    <div class="promo-button">
-      <button>Apply Coupon</button>
-    </div>
-    <div style="font-weight: bold;" class="box2a3">
-      Terms and Condition
-      <ul
-        style="text-align: left; font-weight: normal; list-style-type: decimal; padding-left: 18px;"
-      >
-        <li>You can only apply 1 coupon per day</li>
-        <li>It only for dine in</li>
-        <li>Buy 1 get 1 only for new user</li>
-        <li>Should make remember card to apply coupon</li>
-      </ul>
-    </div>
-    <div class="new-promo">
-      <button @click="addCoupon()" v-if="user.user_role === 1">
-        Add New Promo
-      </button>
+    <div class="promo-button ml-3">
+      <button class="mb-3" @click="addPromo()">Apply Coupon</button>
+      <b-button style="background-color: gray;" @click="removePromo()">
+        Reset Coupon
+      </b-button>
     </div>
   </div>
 </template>
@@ -94,21 +72,21 @@ export default {
   },
   methods: {
     ...mapActions(['getCoupons']),
-    ...mapMutations(['changePages']),
+    ...mapMutations(['changePages', 'setPromo', 'clearPromo']),
     getPromo() {
       this.getCoupons()
+    },
+    addPromo() {
+      this.setPromo(this.coupon[0])
+    },
+    removePromo() {
+      this.clearPromo()
     },
     handlePageChange(numberPage) {
       this.changePages(numberPage)
       this.getPromo()
     },
-    addCoupon() {
-      this.$router.push('/newPromo')
-    },
-    updatePromo(coupon_id) {
-      console.log(coupon_id)
-      this.$router.push({ name: 'EditPromo', params: { id: coupon_id } })
-    },
+    applyCoupon() {},
     formatTime(value) {
       moment.locale('en')
       return moment(String(value)).format('ll')

@@ -10,8 +10,24 @@
       <div class="header-menu col-xl-5">
         <router-link class="link-router" to="/">Home</router-link>
         <router-link class="link-router" to="/product">Product</router-link>
-        <router-link class="link-router" to="/yourcart">Your Cart</router-link>
-        <router-link class="link-router" to="/history">History</router-link>
+        <router-link
+          v-if="user.user_role !== 1"
+          class="link-router"
+          to="/yourcart"
+          >Your Cart</router-link
+        >
+        <router-link
+          v-if="user.user_role === 1"
+          class="link-router"
+          to="/manageorder"
+          >Orders</router-link
+        >
+        <router-link
+          v-if="user.user_role !== 1"
+          class="link-router"
+          to="/history"
+          >History</router-link
+        >
         <router-link
           v-if="user.user_role === 1"
           class="link-router"

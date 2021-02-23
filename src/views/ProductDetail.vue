@@ -5,100 +5,203 @@
       <b-container>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Favourite & Promo</a></li>
+            <li class="breadcrumb-item">
+              <router-link to="/product">Favourite & Promo</router-link>
+            </li>
             <li class="breadcrumb-item active" aria-current="page">
-              Nama Product
+              {{ produk.product_name }}
             </li>
           </ol>
         </nav>
         <div class="detail-top">
           <div class="detail-left">
             <div class="img-top">
-              <img src="../assets/img/google.png" alt="" />
+              <img
+                v-if="produk.product_image"
+                style="border-radius: 50%; width: 200px;"
+                :src="'http://localhost:3000/products/' + produk.product_image"
+              />
+              <img v-else src="../assets/img/noimage.jpg" alt="" />
             </div>
 
             <div class="box">
               <h5>Delivery and Time</h5>
               <div class="group-btn" role="group" aria-label="First group">
-                <button type="button" class="btn-select">
+                <button
+                  v-if="produk.product_deliv_dine === 1"
+                  @click="btnDeliv('Dine In')"
+                  :class="
+                    form.detail_delivery === 'Dine In'
+                      ? 'btn-select-on active'
+                      : 'btn-select'
+                  "
+                >
                   Dine In
                 </button>
-                <button type="button" class="btn-select">Door Delivery</button>
-                <button type="button" class="btn-select">Pick up</button>
-              </div>
-              <div class="group-btn" role="group" aria-label="Second group">
-                Now
-                <button type="button" class="btn-select1">
-                  Yes
+                <button
+                  v-if="produk.product_deliv_home === 1"
+                  @click="btnDeliv('Home Delivery')"
+                  :class="
+                    form.detail_delivery === 'Home Delivery'
+                      ? 'btn-select-on active'
+                      : 'btn-select'
+                  "
+                >
+                  Home Delivery
                 </button>
-                <button type="button" class="btn-select1">No</button>
+                <button
+                  v-if="produk.product_deliv_take === 1"
+                  @click="btnDeliv('Take Away')"
+                  :class="
+                    form.detail_delivery === 'Take Away'
+                      ? 'btn-select-on active'
+                      : 'btn-select'
+                  "
+                >
+                  Pick up
+                </button>
               </div>
-              <div class="text-input">
-                Set Time
-                <input type="text" placeholder="Enter time for reservation" />
+              <div role="group" aria-label="Second group">
+                <h5>Now</h5>
+                <div>
+                  <button
+                    @click="btnNow('Yes')"
+                    :class="
+                      now === 'Yes'
+                        ? 'btn-select-on px-4 active'
+                        : 'btn-select px-4'
+                    "
+                  >
+                    Yes
+                  </button>
+                  <button
+                    @click="btnNow('No')"
+                    :class="
+                      now === 'No'
+                        ? 'btn-select-on px-4 active'
+                        : 'btn-select px-4'
+                    "
+                  >
+                    No
+                  </button>
+                </div>
               </div>
             </div>
+            {{ cart }}
           </div>
           <div class="detail-right">
             <h1 class="centered">{{ produk.product_name }}</h1>
-            <h6>
-              Cold brewing is a method of brewing that combines ground coffee
-              and cool water and uses time instead of heat to extract the
-              flavor. It is brewed in small batches and dleepes for as long as
-              48 hours.
-            </h6>
+            <p>
+              {{ produk.product_desc }}
+            </p>
             <br />
-            <h6>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              facilis?
-            </h6>
+
             <br />
             <div class="input-price">
               <div class="number-input">
-                <button
-                  onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                  class="button-min"
-                >
+                <button @click="btnMin()" class="button-min">
                   -
                 </button>
-                <input
-                  class="quantity"
-                  min="0"
-                  name="quantity"
-                  value="1"
-                  type="number"
-                />
-                <button
-                  onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                  class="button-plus"
-                >
+                <input v-model="form.detail_qty" type="number" />
+                <button @click="btnPlus()" class="button-plus">
                   +
                 </button>
               </div>
-              <h4 class="number-price">IDR 30.000</h4>
+              <h4 class="number-price">IDR {{ form.detail_total }}</h4>
             </div>
 
-            <button class="button-add">Add to Cart</button>
-            <button class="button-orange">Ask a Staff</button>
+            <button @click="postCart()" class="button-add">Add to Cart</button>
+            <button @click="postInvoice()" class="button-orange">
+              Ask a Staff
+            </button>
+            {{ invoice }}
           </div>
         </div>
         <div class="detail-bottom">
           <div class="size">
             <h5>Choose a size</h5>
             <div class="size-var">
-              <button class="btn-size"><h5>R</h5></button>
-              <button class="btn-size"><h5>L</h5></button>
-              <button class="btn-size"><h5>XL</h5></button>
+              <button
+                v-if="produk.product_sizeR === 1"
+                @click="btnSize('Regular')"
+                :class="
+                  form.detail_size === 'Regular'
+                    ? 'btn-size active'
+                    : 'btn-size-off'
+                "
+              >
+                <h5>R</h5>
+              </button>
+              <button
+                v-if="produk.product_sizeL === 1"
+                @click="btnSize('Large')"
+                :class="
+                  form.detail_size === 'Large'
+                    ? 'btn-size active'
+                    : 'btn-size-off'
+                "
+              >
+                <h5>L</h5>
+              </button>
+              <button
+                v-if="produk.product_sizeXL === 1"
+                @click="btnSize('Extra Large')"
+                :class="
+                  form.detail_size === 'Extra Large'
+                    ? 'btn-size active'
+                    : 'btn-size-off'
+                "
+              >
+                <h5>XL</h5>
+              </button>
+              <button
+                v-if="produk.product_size250 === 1"
+                @click="btnSize('250 gr')"
+                :class="
+                  form.detail_size === '250 gr'
+                    ? 'btn-size active'
+                    : 'btn-size-off'
+                "
+              >
+                250gr
+              </button>
+              <button
+                v-if="produk.product_size300 === 1"
+                @click="btnSize('300 gr')"
+                :class="
+                  form.detail_size === '300 gr'
+                    ? 'btn-size active'
+                    : 'btn-size-off'
+                "
+              >
+                300gr
+              </button>
+              <button
+                v-if="produk.product_size500 === 1"
+                @click="btnSize('500 gr')"
+                :class="
+                  form.detail_size === '500 gr'
+                    ? 'btn-size active'
+                    : 'btn-size-off'
+                "
+              >
+                500gr
+              </button>
             </div>
           </div>
           <div class="checkout">
             <div class="c-image">
-              <img src="../assets/img/hazelnut.png" />
+              <img
+                v-if="produk.product_image"
+                :src="'http://localhost:3000/products/' + produk.product_image"
+              />
+              <img v-else src="../assets/img/noimage.jpg" alt="" />
             </div>
             <div class="desc">
-              disini size
+              <h4>{{ produk.product_name }}</h4>
+              {{ form.detail_qty }} x ({{ form.detail_size }})
             </div>
-            <button class="btn-checkout" @click="checkout()">Checkout</button>
+            <button class="btn-checkout" @click="checkOut()">Checkout</button>
           </div>
         </div>
       </b-container>
@@ -108,41 +211,102 @@
 </template>
 
 <script>
-// [1] step pertama import komponen
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
-  // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
     Mainheader,
     Footer
   },
   computed: {
-    ...mapGetters({ produk: 'getDataProductById' })
+    ...mapGetters({
+      produk: 'getDataProductById',
+      cart: 'getCartData',
+      invoice: 'getInvoice'
+    })
   },
   data() {
     return {
-      product_id: ''
-      // produk: []
+      product_id: '',
+      form: {
+        invoice: '',
+        product_id: '',
+        product_name: '',
+        product_image: '',
+        detail_delivery: '',
+        detail_size: '',
+        detail_qty: 1,
+        detail_total: 0
+      },
+      now: '',
+      carts: [],
+      data: ''
     }
   },
   created() {
-    this.product_id = this.$route.params.id
-    console.log(this.$route.params.id)
+    this.postInvoice()
+  },
+  mounted() {
     this.getProductById()
-    console.log('setelah product')
-    console.log(this.produk)
+    this.form.product_id = this.$route.params.id
+    this.form.product_name = this.produk.product_name
+    this.form.product_image = this.produk.product_image
+    this.form.detail_total = this.produk.product_price
+    this.form.invoice = this.invoice
   },
   methods: {
+    ...mapMutations(['setCart', 'deleteCart', 'setInvoice']),
     ...mapActions(['getProductsById']),
     ...mapGetters(['getDataProductById']),
+    postCart() {
+      this.carts = [...this.cart, this.form]
+      this.setCart(this.carts)
+    },
+    delCart() {
+      this.deleteCart()
+    },
     getProductById() {
-      this.getProductsById(this.product_id)
+      this.getProductsById(this.$route.params.id)
     },
     checkout() {
       console.log(this.$route.params.id)
+    },
+    btnDeliv(deliv) {
+      this.form.detail_delivery = deliv
+    },
+    btnNow(time) {
+      this.now = time
+    },
+    btnSize(size) {
+      this.form.detail_size = size
+    },
+    btnPlus() {
+      this.form.detail_qty++
+      this.form.detail_total = this.produk.product_price * this.form.detail_qty
+    },
+    btnMin() {
+      this.form.detail_qty--
+      this.form.detail_total = this.produk.product_price * this.form.detail_qty
+    },
+    checkOut() {
+      this.$router.push('/yourcart')
+    },
+    randInvoice() {
+      const value = 'CFS'
+      const num = Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000
+      if (this.invoice === '') {
+        this.data = value + num
+      } else {
+        return this.invoice
+      }
+    },
+    postInvoice() {
+      this.randInvoice()
+      if (this.invoice === '') {
+        this.setInvoice(this.data)
+      }
     }
   }
 }
@@ -179,7 +343,13 @@ export default {
   color: #9f9f9f;
   margin-right: 20px;
   padding: 0px 10px;
-  line-height: 40px;
+  box-shadow: 0px 6px 20px rgba(137, 85, 55, 0.4);
+}
+.btn-select-on {
+  color: white;
+  background-color: #6a4029;
+  margin-right: 20px;
+  padding: 0px 10px;
   box-shadow: 0px 6px 20px rgba(137, 85, 55, 0.4);
 }
 .box {
@@ -196,24 +366,6 @@ h5 {
   display: flex;
   align-items: center;
   font-weight: bold;
-}
-.btn-select1 {
-  background-color: #f4f4f8;
-  color: #9f9f9f;
-  margin: 0px 20px;
-  padding: 0px 30px;
-  line-height: 40px;
-  box-shadow: 0px 6px 20px rgba(137, 85, 55, 0.4);
-}
-.btn-select:hover {
-  color: white;
-  background-color: #6a4029;
-  box-shadow: 0px 6px 20px rgba(137, 85, 55, 0.4);
-}
-.btn-select1:hover {
-  color: white;
-  background-color: #6a4029;
-  box-shadow: 0px 6px 20px rgba(137, 85, 55, 0.4);
 }
 .text-input {
   font-weight: bold;
@@ -313,6 +465,14 @@ button {
   width: 60px;
   height: 60px;
 }
+.btn-size-off {
+  border-radius: 50%;
+  background-color: #f4f4f8;
+  color: #9f9f9f;
+  padding: 10px;
+  width: 60px;
+  height: 60px;
+}
 .checkout {
   margin-left: 40px;
   flex: 0.65;
@@ -336,5 +496,10 @@ button {
   color: #6a4029;
   font-weight: bold;
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.34);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>

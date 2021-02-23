@@ -45,8 +45,9 @@
 import { toastMixins } from '../../mixins/toastMixins'
 import { mapState, mapActions } from 'vuex'
 import Footer from '../../components/_base/Footer'
+import Alert from '../../mixins/Alert'
 export default {
-  mixins: [toastMixins],
+  mixins: [toastMixins, Alert],
   name: 'Login',
   components: {
     Footer
@@ -69,12 +70,11 @@ export default {
       console.log(this.form)
       this.login(this.form)
         .then(result => {
-          console.log(result)
-          alert('success login')
+          this.AlertSucces(result.data.msg)
           this.$router.push('/')
         })
         .catch(err => {
-          this.dangerToast(err.data.msg)
+          this.AlertError(err.data.msg)
           // alert(err.data.msg)
         })
     },

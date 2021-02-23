@@ -31,7 +31,7 @@
                     />
                     <div
                       @click="detailProduct(item.product_id)"
-                      style="padding: 0px 60px; font-size: 20px; padding: 5px 20px; "
+                      style="padding: 0px 60px; font-size: 20px; padding: 5px 20px; cursor: pointer;"
                     >
                       <strong>{{ item.product_name }}</strong>
                     </div>

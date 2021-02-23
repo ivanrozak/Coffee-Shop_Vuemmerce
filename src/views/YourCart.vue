@@ -3,54 +3,129 @@
     <Mainheader />
     <div class="yourcart">
       <b-container>
-        <h2 class="rubik font-title">Checkout your item now!</h2>
+        <h2 class="rubik font-title mb-3">
+          Checkout your <br />
+          item now!
+        </h2>
         <b-row class="poppins" align-h="between">
           <b-col cols="5">
-            <div class="box-left padding-20 border-white">
-              <h3>Order Summary</h3>
-              <b-row>
-                <b-col>picture here</b-col>
-                <b-col>name here</b-col>
-                <b-col>idr here</b-col>
-              </b-row>
+            <div class="box-left border-white">
+              <h3 style="text-align: center;">
+                <strong>Order Summary</strong>
+              </h3>
+              <p
+                v-if="cart[0]"
+                style="cursor: pointer; text-align: right;"
+                class="mt-4 mb-2"
+                @click="delCart()"
+              >
+                clear cart
+              </p>
+              <div class="flow">
+                <div
+                  v-for="(item, index) in cart"
+                  :key="index"
+                  class="flexs mb-2"
+                >
+                  <div class="flexs">
+                    <img
+                      style="border-radius: 10px; width: 60px;"
+                      :src="
+                        'http://localhost:3000/products/' + item.product_image
+                      "
+                    />
+                    <div class="ml-4">
+                      <div>
+                        {{ item.product_name }} <br />
+                        {{ item.detail_qty }} x
+                        <small>({{ item.detail_size }})</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div>{{ item.detail_total }}</div>
+                </div>
+              </div>
+
               <hr />
-              <b-row>
-                <b-col>
+              <div class="flex3">
+                <div>
                   <p>SUB TOTAL</p>
                   <p>TAX & FEES</p>
                   <p>SHIPPING</p>
-                </b-col>
-                <b-col>
-                  <p>value 1</p>
-                  <p>value 2</p>
-                  <div>aaa</div>
-                  <p>value 3</p>
-                </b-col>
-              </b-row>
-              <b-row>
-                <b-col>TOTAL</b-col>
-                <b-col>VALUE</b-col>
-              </b-row>
+                  <p>DISCOUNT</p>
+                </div>
+                <div style="text-align: right;">
+                  <p>{{ form.sub_total }}</p>
+                  <p>{{ form.tax_fees }}</p>
+                  <p>{{ form.shipping }}</p>
+                  <p>- {{ form.discount }}</p>
+                </div>
+              </div>
+              <div class="flexs mt-3">
+                <h5><strong>TOTAL</strong></h5>
+                <h5>
+                  <strong>{{ form.grand_total }}</strong>
+                </h5>
+              </div>
             </div>
+            <b-button
+              variant="warning"
+              class="mt-3 w-100 py-3"
+              style="color: #6A4029"
+              v-b-toggle.sidebar-1
+              ><strong>Use Coupon</strong></b-button
+            >
+            {{ form }}
+            <b-sidebar id="sidebar-1" title="Apply Coupon" shadow>
+              <div class="px-3 py-2">
+                <Coupon />
+              </div>
+            </b-sidebar>
           </b-col>
           <b-col cols="5">
             <h4 class="font-title">Address details</h4>
-            <div class="border-white padding-20">
-              <p>Delivery to value address</p>
+            <div class="border-white">
+              <p><strong>Delivery</strong> to {{ user.user_address }}</p>
               <hr />
-              <p>disini alamat</p>
+              <p>
+                Jl. Ir. Soekarno Hatta <br />
+                Blok M-1 No.119
+              </p>
               <hr />
-              <p>contsct user</p>
+              <p>{{ user.user_contact }}</p>
             </div>
-            <h4 class="font-title">Payment method</h4>
-            <div class="border-white padding-20">
-              <p>Card</p>
+            <h4 class="font-title mt-4">Payment method</h4>
+            <div class="border-white mb-3">
+              <div class="flex2">
+                <b-form-radio
+                  v-model="form.payment_method"
+                  value="Card"
+                ></b-form-radio>
+                <img class="img-card mr-3" src="../assets/img/card.png" />
+                <div>Card</div>
+              </div>
               <hr />
-              <p>Bank Account</p>
+              <div class="flex2">
+                <b-form-radio
+                  v-model="form.payment_method"
+                  value="Bank Account"
+                ></b-form-radio>
+                <img class="img-bank mr-3" src="../assets/img/bank.png" />
+                <div>Bank Account</div>
+              </div>
               <hr />
-              <p>Cash on Delivery</p>
+              <div class="flex2">
+                <b-form-radio
+                  v-model="form.payment_method"
+                  value="Cash on delivery"
+                ></b-form-radio>
+                <img class="img-cash mr-3" src="../assets/img/delivery.png" />
+                <div>Cash on Delivery</div>
+              </div>
             </div>
-            <button class="button-full" type="submit">Confirm and Pay</button>
+            <button class="button-full" @click="postData()">
+              Confirm and Pay
+            </button>
           </b-col>
         </b-row>
       </b-container>
@@ -60,60 +135,96 @@
 </template>
 
 <script>
-// [1] step pertama import komponen
 import Mainheader from '../components/_base/Mainheader'
 import Footer from '../components/_base/Footer'
-import axios from 'axios'
+import Coupon from '../components/_base/CouponCart'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'History',
-  // [2] step 2 mendaftarkan komponen yang sudah kita import
   components: {
     Mainheader,
-    Footer
+    Footer,
+    Coupon
   },
   computed: {
-    rows() {
-      return this.totalRows
-    }
+    ...mapGetters({
+      cart: 'getCartData',
+      user: 'setUser',
+      invoice: 'getInvoice',
+      promo: 'getDataPromo'
+    })
   },
   data() {
     return {
-      history: [],
-      alert: false,
-      isMsg: '',
-      history_id: '',
-      currentPage: 1,
-      totalRows: null,
-      limit: 12,
-      page: 1
+      form: {
+        user_id: '',
+        invoice: '',
+        sub_total: 0,
+        payment_method: '',
+        history_status: 0,
+        tax_fees: 0,
+        shipping: 0,
+        discount: 0,
+        grand_total: 0
+      }
     }
   },
   created() {
-    this.getHistory()
+    this.getUserByEmail()
+    this.countTotal()
+    this.form.invoice = this.invoice
+    this.form.user_id = this.user.user_id
+  },
+  mounted() {
+    this.countDiscount()
+    this.countGrand()
   },
   methods: {
-    getHistory() {
-      axios
-        .get(
-          `http://localhost:3000/history?page=${this.page}&limit=${this.limit}`
-        )
-        .then(response => {
-          console.log(response)
-          this.totalRows = response.data.pagination.totalData
-          this.history = response.data.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
+    ...mapMutations(['deleteCart', 'deleteInvoice']),
+    ...mapActions(['getUserByEmails', 'postDetailHistory', 'postHistories']),
+    delCart() {
+      this.deleteCart()
     },
-    deleteHistory(history_id) {
-      console.log(history_id)
+    postData() {
+      this.postDetailHistory(this.cart)
+      this.postHistories(this.form)
+      alert('Mantap')
+      this.deleteCart()
+      this.deleteInvoice()
+      this.form.sub_total = 0
     },
-    handlePageChange(numberPage) {
-      console.log(numberPage)
-      this.page = numberPage
-      this.getHistory()
+    btnPayment(payment) {
+      this.form.payment_method = payment
+    },
+    getUserByEmail() {
+      this.getUserByEmails(this.user.user_email)
+    },
+    countTotal() {
+      this.form.sub_total = this.cart.reduce(
+        (n, { detail_total }) => n + detail_total,
+        0
+      )
+    },
+    countDiscount() {
+      if (this.form.sub_total >= this.promo.coupon_min_purchase) {
+        let dsc = (this.form.sub_total * this.promo.coupon_discount) / 100
+        if (dsc >= this.promo.coupon_max_limit) {
+          dsc = this.promo.coupon_max_limit
+          this.form.discount = dsc
+        } else {
+          this.form.discount = dsc
+        }
+      } else {
+        this.form.discount = 0
+      }
+    },
+    countGrand() {
+      this.form.grand_total =
+        this.form.sub_total +
+        this.form.tax_fees +
+        this.form.shipping -
+        this.form.discount
     }
   }
 }
@@ -124,6 +235,44 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 
+.flex2 {
+  display: flex;
+  align-items: center;
+}
+.flex3 {
+  display: flex;
+  justify-content: space-between;
+}
+.img-card {
+  background-color: #f47b0a;
+  border-radius: 10px;
+  padding: 10px;
+  width: 40px;
+  height: 35px;
+}
+.img-bank {
+  background-color: #895537;
+  border-radius: 10px;
+  padding: 10px;
+  width: 40px;
+  height: 35px;
+}
+.img-cash {
+  background-color: #ffba33;
+  border-radius: 10px;
+  padding: 10px;
+  width: 40px;
+  height: 35px;
+}
+.flow {
+  overflow: auto;
+  max-height: 210px;
+}
+.flexs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .yourcart {
   padding: 30px;
   font-family: 'Rubik';
@@ -146,39 +295,17 @@ export default {
 .rubik {
   font-family: 'Rubik';
 }
-.padding-20 {
-  padding: 10px 20px;
-}
+
 .border-white {
   background-color: white;
   border-radius: 20px;
+  padding: 50px 40px;
 }
-.cards {
-  border-radius: 10px;
-  padding: 20px 20px;
-  margin: 20px 20px;
-  display: flex;
-  background-color: white;
-  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.03);
-}
-.cards img {
-  border-radius: 50%;
-  width: 70px;
-  margin-right: 20px;
-}
-.cards-mid {
-  width: 190px;
-}
-.cards button {
-  margin-top: 40px;
-  width: 60px;
-  height: 30px;
-  border-radius: 10px;
-}
+
 .font-title {
   color: white;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.8);
-  font-weight: bold;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
+  font-weight: 500;
 }
 .button-full {
   width: 100%;

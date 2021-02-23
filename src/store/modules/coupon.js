@@ -8,7 +8,8 @@ export default {
     currentPage: 1,
     totalRows: null,
     limit: 1,
-    page: 1
+    page: 1,
+    promo: {}
   },
   mutations: {
     setCoupon(state, payload) {
@@ -20,6 +21,12 @@ export default {
     },
     setCouponById(state, payload) {
       state.couponsById = payload
+    },
+    setPromo(state, payload) {
+      state.promo = payload
+    },
+    clearPromo(state) {
+      state.promo = {}
     }
   },
   actions: {
@@ -107,6 +114,9 @@ export default {
     },
     getDataCouponById(state) {
       return state.couponsById
+    },
+    getDataPromo(state) {
+      return state.promo
     }
   }
 }

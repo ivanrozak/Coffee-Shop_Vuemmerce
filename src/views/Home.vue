@@ -31,7 +31,7 @@
       <b-container>
         <div class="statistic">
           <div class="stat">
-            <img src="../assets/img/ig.png" alt="" />
+            <img src="../assets/img/1.png" alt="" />
             <div>
               <h5>90+</h5>
               <p>Staff</p>
@@ -39,18 +39,18 @@
           </div>
           <div class="vl"></div>
           <div class="stat">
-            <img src="../assets/img/ig.png" alt="" />
+            <img src="../assets/img/2.png" alt="" />
             <div>
-              <h5>90+</h5>
-              <p>Staff</p>
+              <h5>30+</h5>
+              <p>Store</p>
             </div>
           </div>
           <div class="vl"></div>
           <div class="stat">
-            <img src="../assets/img/ig.png" alt="" />
+            <img src="../assets/img/3.png" alt="" />
             <div>
-              <h5>90+</h5>
-              <p>Staff</p>
+              <h5>800+</h5>
+              <p>Customers</p>
             </div>
           </div>
         </div>
@@ -317,8 +317,11 @@ h1 {
 }
 .stat img {
   margin: 0px 30px 0px 0px;
-  width: 40px;
-  height: 40px;
+  background-color: #ffba33;
+  padding: 9px;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
 }
 .stat h5 {
   font-weight: 900;

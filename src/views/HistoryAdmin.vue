@@ -25,8 +25,8 @@
                 >delivered</small
               >
             </div>
-            <b-button variant="danger" @click="deleteHistorys(item.invoice)"
-              ><b-icon icon="trash-fill" aria-hidden="true"></b-icon
+            <b-button variant="info" @click="confirmOrder(item.history_id)"
+              ><b-icon icon="pencil-fill" aria-hidden="true"></b-icon
             ></b-button>
           </div>
         </b-row>
@@ -51,7 +51,7 @@ export default {
     Footer
   },
   computed: {
-    ...mapGetters({ data: 'getDataUserHistory', user: 'setUser' })
+    ...mapGetters({ data: 'getAllDataHistory', user: 'setUser' })
   },
   data() {
     return {}
@@ -61,13 +61,12 @@ export default {
     console.log(this.data)
   },
   methods: {
-    ...mapActions(['getHistoryUser', 'deleteDetailHistory', 'deleteHistory']),
+    ...mapActions(['getAllHistory', 'patchHistory']),
     getHistory() {
-      this.getHistoryUser(this.user.user_id)
+      this.getAllHistory()
     },
-    deleteHistorys(invoice) {
-      this.deleteHistory(invoice)
-      this.deleteDetailHistory(invoice)
+    confirmOrder(param) {
+      this.patchHistory(param)
       this.getHistory()
     }
   }

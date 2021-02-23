@@ -13,6 +13,7 @@ import AddProduct from '../views/AddProduct.vue'
 import NewPromo from '../views/NewPromo.vue'
 import EditProduct from '../views/EditProduct.vue'
 import EditPromo from '../views/EditPromo.vue'
+import ManageOrder from '../views/HistoryAdmin.vue'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -86,6 +87,11 @@ const routes = [
     path: '/editPromo/:id',
     name: 'EditPromo',
     component: EditPromo
+  },
+  {
+    path: '/manageorder',
+    name: 'ManageOrder',
+    component: ManageOrder
   }
 ]
 

@@ -5,15 +5,10 @@ export default {
     user: {},
     token: localStorage.getItem('token') || null
   },
-  // mutation bisa digunakan untuk mengubah state
   mutations: {
     setUser(state, payload) {
-      // console.log('proses mutation setUser')
-      // console.log(payload)
       state.user = payload
       state.token = payload.token
-      // console.log(state.user)
-      // console.log(state.token)
     },
     setUserByEmail(state, payload) {
       state.user = payload
@@ -29,7 +24,6 @@ export default {
         axios
           .post(`${process.env.VUE_APP_URL}user/login`, payload)
           .then(result => {
-            // console.log(result)
             context.commit('setUser', result.data.data)
             localStorage.setItem('token', result.data.data.token)
             resolve(result)
@@ -38,10 +32,6 @@ export default {
             console.log(error.response)
             reject(error.response)
           })
-        //   console.log('fungsi yang ada di store vuex')
-        //   console.log(payload)
-        //   console.log(resolve)
-        //   console.log(reject)
       })
     },
     getUserByEmails(context, payload) {
