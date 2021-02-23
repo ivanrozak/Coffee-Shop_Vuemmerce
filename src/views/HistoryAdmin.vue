@@ -30,7 +30,6 @@
             ></b-button>
           </div>
         </b-row>
-        {{ data }}
       </b-container>
     </div>
     <Footer />

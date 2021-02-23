@@ -25,7 +25,7 @@
                 <img
                   v-else-if="form.product_image"
                   style="border-radius: 50%; width: 200px;"
-                  :src="'http://localhost:3000/products/' + form.product_image"
+                  :src="config + 'products/' + form.product_image"
                 />
                 <img
                   v-else
@@ -246,7 +246,8 @@ export default {
         { value: '4', text: 'Add-on' }
       ],
       checked1: false,
-      url: ''
+      url: '',
+      config: process.env.VUE_APP_URL
     }
   },
   created() {

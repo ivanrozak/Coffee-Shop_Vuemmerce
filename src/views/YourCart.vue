@@ -30,9 +30,7 @@
                   <div class="flexs">
                     <img
                       style="border-radius: 10px; width: 60px;"
-                      :src="
-                        'http://localhost:3000/products/' + item.product_image
-                      "
+                      :src="config + 'products/' + item.product_image"
                     />
                     <div class="ml-4">
                       <div>
@@ -75,7 +73,6 @@
               v-b-toggle.sidebar-1
               ><strong>Use Coupon</strong></b-button
             >
-            {{ form }}
             <b-sidebar id="sidebar-1" title="Apply Coupon" shadow>
               <div class="px-3 py-2">
                 <Coupon />
@@ -169,7 +166,8 @@ export default {
         shipping: 0,
         discount: 0,
         grand_total: 0
-      }
+      },
+      config: process.env.VUE_APP_URL
     }
   },
   created() {

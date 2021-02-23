@@ -19,7 +19,7 @@
               <img
                 v-if="produk.product_image"
                 style="border-radius: 50%; width: 200px;"
-                :src="'http://localhost:3000/products/' + produk.product_image"
+                :src="config + 'products/' + produk.product_image"
               />
               <img v-else src="../assets/img/noimage.jpg" alt="" />
             </div>
@@ -87,7 +87,6 @@
                 </div>
               </div>
             </div>
-            {{ cart }}
           </div>
           <div class="detail-right">
             <h1 class="centered">{{ produk.product_name }}</h1>
@@ -114,7 +113,6 @@
             <button @click="postInvoice()" class="button-orange">
               Ask a Staff
             </button>
-            {{ invoice }}
           </div>
         </div>
         <div class="detail-bottom">
@@ -193,7 +191,7 @@
             <div class="c-image">
               <img
                 v-if="produk.product_image"
-                :src="'http://localhost:3000/products/' + produk.product_image"
+                :src="config + 'products/' + produk.product_image"
               />
               <img v-else src="../assets/img/noimage.jpg" alt="" />
             </div>
@@ -231,6 +229,7 @@ export default {
   },
   data() {
     return {
+      config: process.env.VUE_APP_URL,
       product_id: '',
       form: {
         invoice: '',

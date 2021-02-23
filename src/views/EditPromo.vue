@@ -25,7 +25,7 @@
                 <img
                   v-else-if="form.coupon_image"
                   style="border-radius: 50%; width: 200px;"
-                  :src="'http://localhost:3000/coupons/' + form.coupon_image"
+                  :src="config + 'coupons/' + form.coupon_image"
                 />
                 <img
                   v-else
@@ -128,7 +128,8 @@ export default {
   data() {
     return {
       coupon_id: '',
-      url: ''
+      url: '',
+      config: process.env.VUE_APP_URL
     }
   },
   created() {

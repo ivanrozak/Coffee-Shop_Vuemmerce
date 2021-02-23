@@ -25,9 +25,7 @@
                   <div class="image">
                     <img
                       style="border-radius: 50%; width: 120px; height: 120px;"
-                      :src="
-                        'http://localhost:3000/products/' + item.product_image
-                      "
+                      :src="config + 'products/' + item.product_image"
                     />
                     <div
                       @click="detailProduct(item.product_id)"
@@ -123,7 +121,8 @@ export default {
       alert: false,
       isMsg: '',
       product_id: '',
-      currentPage: 1
+      currentPage: 1,
+      config: process.env.VUE_APP_URL
     }
   },
   created() {
