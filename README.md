@@ -14,6 +14,9 @@ An online coffee shop project that is a solution for cafes during a pandemic, we
 
 ## Project setup
 ```
+git clone this repo url
+```
+```
 npm install
 ```
 
