@@ -44,7 +44,7 @@ export default {
             resolve(response)
           })
           .catch(error => {
-            reject(error)
+            reject(error.response)
           })
       })
     },
@@ -59,7 +59,7 @@ export default {
             resolve(response)
           })
           .catch(error => {
-            reject(error)
+            reject(error.response)
           })
       })
     },
@@ -71,7 +71,7 @@ export default {
             resolve(response)
           })
           .catch(error => {
-            reject(error)
+            reject(error.response)
           })
       })
     },
@@ -84,7 +84,7 @@ export default {
             resolve(response.data.data[0])
           })
           .catch(error => {
-            reject(error)
+            reject(error.response)
           })
       })
     },

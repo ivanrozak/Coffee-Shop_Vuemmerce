@@ -57,8 +57,6 @@
                   v-model="form.category_id"
                   :options="category"
                 ></b-form-select>
-                Start: {{ form.time_start }} End: {{ form.time_end }} Stock:
-                {{ form.product_qty }} Cat: {{ form.category_id }}
               </div>
             </div>
             <div class="sub-box-add-product-kanan">
@@ -213,46 +211,46 @@ export default {
   data() {
     return {
       form: {
-        category_id: null,
+        category_id: 0,
         product_name: '',
         product_desc: '',
-        product_qty: null,
+        product_qty: 0,
         product_price: '',
         product_image: '',
         product_status: '1',
-        time_start: null,
-        time_end: null,
-        product_sizeR: null,
-        product_sizeL: null,
-        product_sizeXL: null,
-        product_size250: null,
-        product_size300: null,
-        product_size500: null,
-        product_deliv_home: null,
-        product_deliv_dine: null,
-        product_deliv_take: null
+        time_start: 0,
+        time_end: 0,
+        product_sizeR: 0,
+        product_sizeL: 0,
+        product_sizeXL: 0,
+        product_size250: 0,
+        product_size300: 0,
+        product_size500: 0,
+        product_deliv_home: 0,
+        product_deliv_dine: 0,
+        product_deliv_take: 0
       },
       alert: false,
       timeStart: [
-        { value: null, text: 'Select start hour' },
+        { value: 0, text: 'Select start hour' },
         { value: '09:00:00', text: '09.00 AM' },
         { value: '10:00:00', text: '10.00 AM' },
         { value: '11:00:00', text: '11.00 AM' }
       ],
       timeEnd: [
-        { value: null, text: 'Select end hour' },
+        { value: 0, text: 'Select end hour' },
         { value: '20:00:00', text: '20.00 AM' },
         { value: '21:00:00', text: '21.00 AM' },
         { value: '22:00:00', text: '22.00 AM' }
       ],
       stock: [
-        { value: null, text: 'Input stock' },
+        { value: 0, text: 'Input stock' },
         { value: '10', text: '10' },
         { value: '20', text: '20' },
         { value: '30', text: '30' }
       ],
       category: [
-        { value: null, text: 'Select Category' },
+        { value: 0, text: 'Select Category' },
         { value: '1', text: 'Coffee' },
         { value: '2', text: 'Non Coffee' },
         { value: '3', text: 'Foods' },
@@ -326,66 +324,66 @@ export default {
       this.$router.push('/product')
     },
     btnHome() {
-      if (this.form.product_deliv_home === null) {
+      if (this.form.product_deliv_home === 0) {
         this.form.product_deliv_home = 1
       } else {
-        this.form.product_deliv_home = null
+        this.form.product_deliv_home = 0
       }
     },
     btnDine() {
-      if (this.form.product_deliv_dine === null) {
+      if (this.form.product_deliv_dine === 0) {
         this.form.product_deliv_dine = 1
       } else {
-        this.form.product_deliv_dine = null
+        this.form.product_deliv_dine = 0
       }
     },
     btnAway() {
-      if (this.form.product_deliv_take === null) {
+      if (this.form.product_deliv_take === 0) {
         this.form.product_deliv_take = 1
       } else {
-        this.form.product_deliv_take = null
+        this.form.product_deliv_take = 0
       }
     },
     btnR() {
-      if (this.form.product_sizeR === null) {
+      if (this.form.product_sizeR === 0) {
         this.form.product_sizeR = 1
       } else {
-        this.form.product_sizeR = null
+        this.form.product_sizeR = 0
       }
     },
     btnL() {
-      if (this.form.product_sizeL === null) {
+      if (this.form.product_sizeL === 0) {
         this.form.product_sizeL = 1
       } else {
-        this.form.product_sizeL = null
+        this.form.product_sizeL = 0
       }
     },
     btnXL() {
-      if (this.form.product_sizeXL === null) {
+      if (this.form.product_sizeXL === 0) {
         this.form.product_sizeXL = 1
       } else {
-        this.form.product_sizeXL = null
+        this.form.product_sizeXL = 0
       }
     },
     btn250() {
-      if (this.form.product_size250 === null) {
+      if (this.form.product_size250 === 0) {
         this.form.product_size250 = 1
       } else {
-        this.form.product_size250 = null
+        this.form.product_size250 = 0
       }
     },
     btn300() {
-      if (this.form.product_size300 === null) {
+      if (this.form.product_size300 === 0) {
         this.form.product_size300 = 1
       } else {
-        this.form.product_size300 = null
+        this.form.product_size300 = 0
       }
     },
     btn500() {
-      if (this.form.product_size500 === null) {
+      if (this.form.product_size500 === 0) {
         this.form.product_size500 = 1
       } else {
-        this.form.product_size500 = null
+        this.form.product_size500 = 0
       }
     }
   }
